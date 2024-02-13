@@ -1,0 +1,714 @@
+type Query {
+  self: User
+  broadcast(id: ID!): Broadcast
+  instansi(id: ID!): Instansi
+  mTingkatInstansi: [MTingkatInstansi!]
+  warga(id: ID!): Warga
+  mAgama: [MAgama!]
+  wargaAjuan(instansi_id: Int!, status_ajuan_id: Int): [WargaAjuan!]
+  user(email: String): User
+  jabatans(instansi_id: Int, keyword: String): [Jabatan!]
+  mPendidikans(keyword: String): [MPendidikan!]
+  mPekerjaans(keyword: String): [MPekerjaan!]
+  mHubunganKeluargas(keyword: String): [MHubunganKeluarga!]
+  mStatusPerkawinans(keyword: String): [MStatusPerkawinan!]
+  mProvinsis(keyword: String): [MProvinsi!]
+  mKotas(keyword: String): [MKota!]
+  mKecamatans(keyword: String): [MKecamatan!]
+  mKelurahans(keyword: String): [MKelurahan!]
+  peranWargas: [Role]
+  mBroadcastSyaratKriteria(instansi_id: ID): [MBroadcastSyaratKriteria]
+  hargaLangganan: [HargaLangganan!]
+  broadcasts(instansi_id: Int!, keyword: String, creator_id: Int, orderBy: [QueryBroadcastsOrderByOrderByClause!]): [Broadcast!]
+  logoutToken: User
+  logoutSession: User
+
+  """Query data master"""
+  master(
+    """Nama master data"""
+    table: String!
+
+    """Kolom data master"""
+    column: String
+
+    """Filter data master"""
+    filter: [MasterFilter!]
+  ): [MasterResult]
+  instansis(
+    keyword: String
+    creator_id: ID
+
+    """Limits number of fetched items."""
+    first: Int! = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): InstansiPaginator!
+  laporans(
+    keyword: String
+
+    """Limits number of fetched items."""
+    first: Int! = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): LaporanPaginator!
+  wargas(
+    instansi_id: Int!
+
+    """Limits number of fetched items."""
+    first: Int! = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): WargaPaginator!
+}
+
+type Mutation {
+  loginToken(email: String!, password: String!, token_fcm: String): User
+  loginSession(email: String!, password: String!, token_fcm: String): User
+  googleLogin(app: AuthGoogleApp!, id_token: String!, token_fcm: String): User
+  googleRegistrasi(app: AuthGoogleApp!, id_token: String!, token_fcm: String): User
+  broadcastCreate(input: BroadcastInput!): Broadcast
+  broadcastUpdate(id: ID!, input: BroadcastInput!): Broadcast
+  broadcastDelete(id: ID!): Broadcast
+  broadcastLampiranDelete(id: ID!): BroadcastLampiran
+  broadcastRead(input: BroadcastReadInput): BroadcastRead
+  broadcastSyaratDelete(id: ID!): BroadcastSyarat
+  broadcastSyaratKriteriaDelete(id: ID): BroadcastSyaratKriteria
+  instansiCreate(input: InstansiCreateInput!): Instansi
+  instansiUpdate(id: ID!, input: InstansiUpdateInput!): Instansi
+  instansiDelete(id: ID!): Instansi
+  instansiLangKonfBayar(instansi_langganan_id: ID!): InstansiLangganan
+  laporanCreate(input: LaporanInput!): Laporan
+  laporanUpdate(id: ID!, input: LaporanInput!): Laporan
+  laporanDelete(id: ID!): Laporan
+  userCreate(input: UserInput!): User
+  userUpdate(id: ID!, input: UserInput): User
+  wargaCreate(input: WargaInput!): Warga
+  wargaUpdate(id: ID!, input: WargaInput!): Warga
+  wargaDelete(id: ID!): Warga
+  wargaAjuanCreate(input: wargaAjuanInput): WargaAjuan
+  wargaAjuanVerval(input: wargaVervalInput): WargaAjuan
+  wargaAjuanUpdateToken(token: String!): WargaAjuan
+}
+
+"""
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
+"""
+scalar DateTime
+
+type Broadcast {
+  id: ID!
+  instansi_id: ID!
+  creator_id: ID!
+  judul: String!
+  body: String
+  status: String!
+  file_cover: String
+  file_cover_thumbnail: String
+  file_cover_url: String
+  file_cover_thumbnail_url: String
+  created_at: String
+  updated_at: String
+  lampirans: [BroadcastLampiran]
+  instansi: Instansi
+  creator: User
+  broadcast_syarat: [BroadcastSyarat]
+}
+
+type BroadcastLampiran {
+  id: ID!
+  nama: String!
+  creator_id: ID!
+  broadcast_id: ID!
+  path: String!
+  tipe: String!
+  ukuran: String!
+  url: String
+}
+
+type BroadcastRead {
+  id: ID!
+  broadcast_id: ID!
+  instansi_id: ID!
+  user_id: ID!
+  broadcast: Broadcast
+  instansi: Instansi
+  user: User
+}
+
+type BroadcastSyarat {
+  id: ID!
+  broadcast_id: ID!
+  keterangan: String
+  broadcast_syarat_kriteria: [BroadcastSyaratKriteria]
+}
+
+type BroadcastSyaratKriteria {
+  id: ID!
+  syarat_id: ID!
+  key: String!
+  value: String!
+  tipe: String!
+}
+
+type FcmRegToken {
+  user_id: ID!
+  reg_token: String
+  expired_at: String
+  created_at: String
+  update_at: String
+  is_deleted: ID
+}
+
+type HargaLangganan {
+  durasi_bulan: Int
+  harga_satuan: String
+  detail_harga: DetailHarga
+  ppn: String
+  biaya_admin: String
+}
+
+type DetailHarga {
+  harga_ppn: String
+  harga_durasi: String
+  total: String
+}
+
+type Instansi {
+  id: ID!
+  tingkat_id: ID!
+  nama: String
+  provinsi_id: ID
+  kota_id: ID
+  kecamatan_id: ID
+  kelurahan_id: ID
+  rw: String
+  rt: String
+  alamat: String
+  creator_id: ID!
+  jumlah_warga: String
+  tingkat: MTingkatInstansi
+  provinsi: MProvinsi
+  kota: MKota
+  kecamatan: MKecamatan
+  kelurahan: MKelurahan
+  creator: User
+  instansi_langganan: [InstansiLangganan!]
+}
+
+type InstansiLangganan {
+  id: ID!
+  instansi_id: ID!
+  kode: String
+  nama: String
+  email: String
+  harga: String!
+  durasi: Int!
+  harga_durasi: String!
+  ppn: String!
+  harga_ppn: String!
+  biaya_admin: String!
+  total: String!
+  is_bayar: Int
+  kode_bayar: String
+  waktu_bayar: String
+  waktu_konfirmasi: String
+  resp_bayar: String
+  expired_at: String
+  created_at: String
+  updated_at: String
+  instansi: Instansi
+}
+
+type Jabatan {
+  id: ID!
+  nama: String!
+  instansi_id: ID
+}
+
+type Laporan {
+  id: ID!
+  judul: String!
+  deskripsi: String
+  gambars: [LaporanGambar!]!
+}
+
+type LaporanGambar {
+  id: ID!
+  laporan_id: ID!
+  file: String!
+  file_thumbnail: String!
+}
+
+type MAgama {
+  id: ID!
+  nama: String!
+}
+
+type MAkses {
+  id: ID!
+  nama: String!
+}
+
+type MBroadcastSyaratKriteria {
+  id: ID!
+  key: String!
+  label: String!
+  tipe: String!
+  value: String
+}
+
+type MHubunganKeluarga {
+  id: ID!
+  nama: String!
+}
+
+type MKecamatan {
+  id: ID!
+  provinsi_id: ID!
+  kota_id: ID!
+  nama: String!
+  provinsi: MProvinsi
+  kota: MKota
+}
+
+type MKelurahan {
+  id: ID!
+  provinsi_id: ID!
+  kota_id: ID!
+  kecamatan_id: ID!
+  nama: String!
+  provinsi: MProvinsi
+  kota: MKota
+  kecamatan: MKecamatan
+}
+
+type MKota {
+  id: ID!
+  provinsi_id: ID!
+  nama: String!
+  provinsi: MProvinsi
+}
+
+type MPekerjaan {
+  id: ID!
+  nama: String!
+}
+
+type MPendidikan {
+  id: ID!
+  nama: String!
+}
+
+type MProvinsi {
+  id: ID!
+  nama: String!
+}
+
+type MStatusAjuan {
+  id: ID!
+  nama: String!
+}
+
+type MStatusPerkawinan {
+  id: ID!
+  nama: String!
+}
+
+type MTingkatInstansi {
+  id: ID!
+  nama: String!
+}
+
+type MTipeAjuan {
+  id: ID!
+  nama: String!
+}
+
+type MWilayah {
+  id: ID!
+  parent_id: Int
+  keterangan: String!
+}
+
+type Role {
+  id: ID!
+  nama: String!
+  m_akses: [MAkses!]!
+  instansis: [Instansi!]
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  token: String
+  roles: [Role!]!
+  instansis: [Instansi!]!
+  warga: Warga
+}
+
+type Warga {
+  id: ID!
+  nama: String!
+  nik: String!
+  no_kk: String!
+  no_tlp: String
+  tempat_lahir: String
+  tgl_lahir: String
+  jenis_kelamin: String
+  alamat: String
+  agama_id: ID
+  status_perkawinan_id: ID
+  kewarganegaraan: String
+  pekerjaan_id: ID
+  pendidikan_id: ID
+  hubungan_keluarga_id: ID
+  file_foto: String
+  file_foto_url: String
+  file_foto_thumbnail: String
+  file_foto_thumbnail_url: String
+  email: String
+  user: User
+  m_agama: MAgama
+  warga_instansi: [WargaInstansi!]
+  pekerjaan: MPekerjaan
+  pendidikan: MPendidikan
+  hubungan_keluarga: MHubunganKeluarga
+  status_perkawinan: MStatusPerkawinan
+}
+
+type WargaAjuan {
+  id: Int!
+  instansi_id: Int!
+  user_id: Int
+  admin_id: Int
+  tipe_ajuan_id: Int!
+  status_ajuan_id: Int!
+  keterangan: String
+  warga_instansi_id: Int
+  token: String
+  token_expired_at: String
+  instansi: Instansi
+  user: User
+  m_tipe_ajuan: MTipeAjuan
+  m_status_ajuan: MStatusAjuan
+  jabatan: Jabatan
+  warga_instansi: WargaInstansi
+}
+
+type WargaInstansi {
+  id: ID!
+  warga_id: ID!
+  user_id: ID
+  instansi_id: ID!
+  jabatan_id: ID
+  peran_id: ID
+  alamat: String
+  old_warga_id: ID!
+  warga: Warga
+  user: User
+  instansi: Instansi
+  jabatan: Jabatan
+  warga_instansi_peran: [WargaInstansiPeran]
+}
+
+type WargaInstansiPeran {
+  id: ID!
+  warga_instansi_id: ID!
+  peran_id: ID!
+  peran: Role
+}
+
+"""
+Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec
+"""
+scalar Upload
+
+input BroadcastInput {
+  id: ID
+  instansi_id: ID!
+  creator_id: ID
+  judul: String!
+  body: String
+  status: statusBroadcast
+  lampirans: [Upload]
+  file_cover: Upload
+  broadcast_syarat: [BroadcastSyaratInput]
+}
+
+enum statusBroadcast {
+  published
+  draft
+}
+
+input BroadcastReadInput {
+  broadcast_id: ID!
+  instansi_id: ID!
+}
+
+input BroadcastSyaratInput {
+  id: ID
+  broadcast_id: ID
+  keterangan: String!
+  broadcast_syarat_kriteria: [BroadcastSyaratKriteriaInput]
+}
+
+input BroadcastSyaratKriteriaInput {
+  id: ID
+  syarat_id: ID
+  key: String!
+  value: String!
+  tipe: tipeKriteria!
+}
+
+enum tipeKriteria {
+  string
+  number
+  date
+}
+
+input InstansiUpdateInput {
+  nama: String
+  tingkat_id: ID!
+  provinsi_id: ID!
+  kota_id: ID!
+  kecamatan_id: ID!
+  kelurahan_id: ID!
+  rw: String
+  rt: String
+  alamat: String
+}
+
+input InstansiCreateInput {
+  nama: String
+  tingkat_id: ID!
+  provinsi_id: ID!
+  kota_id: ID!
+  kecamatan_id: ID!
+  kelurahan_id: ID!
+  rw: String
+  rt: String
+  alamat: String
+  durasi_langganan: Int!
+}
+
+input InstansiLanggananInput {
+  instansi_id: ID
+  harga: Int!
+  durasi: Int!
+  harga_durasi: Int!
+  ppn: Int!
+  harga_ppn: Int!
+  biaya_admin: Int!
+  total: Int!
+}
+
+input LaporanInput {
+  judul: String!
+  deskripsi: String
+  gambars: [Upload]
+}
+
+input UserInput {
+  name: String!
+  email: String!
+  password: String
+}
+
+input WargaInput {
+  nama: String!
+  nik: ID!
+  no_kk: ID!
+  tempat_lahir: String
+  tgl_lahir: String
+  jenis_kelamin: jenisKelamin
+  no_tlp: ID
+  alamat: String
+  agama_id: ID
+  status_perkawinan_id: ID
+  kewarganegaraan: String
+  pekerjaan_id: ID
+  pendidikan_id: ID
+  hubungan_keluarga_id: ID
+  file_foto: Upload
+  email: String
+  instansi_id: ID
+  jabatan_id: ID
+  peran: [WargaInstansiPeranInput]
+}
+
+enum jenisKelamin {
+  L
+  P
+}
+
+input wargaAjuanInput {
+  instansi_id: ID!
+  tipe_ajuan_id: ID!
+  warga_id: ID!
+  keterangan: String
+}
+
+input WargaInstansiPeranInput {
+  id: ID!
+}
+
+input wargaVervalInput {
+  id: Int
+  token: String
+}
+
+enum AuthGoogleApp {
+  android
+  ios
+  web
+}
+
+input MasterFilter {
+  column: String!
+  operator: MasterFilterOperator
+  value: [String!]
+}
+
+type MasterResult {
+  key: String
+  value: String
+}
+
+enum MasterFilterOperator {
+  EQ
+  NEQ
+  LIKE
+  IN
+}
+
+"""Information about pagination using a fully featured paginator."""
+type PaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
+  firstItem: Int
+
+  """Are there more pages after this one?"""
+  hasMorePages: Boolean!
+
+  """Index of the last item in the current page."""
+  lastItem: Int
+
+  """Index of the last available page."""
+  lastPage: Int!
+
+  """Number of items per page."""
+  perPage: Int!
+
+  """Number of total available items."""
+  total: Int!
+}
+
+"""A paginated list of Instansi items."""
+type InstansiPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Instansi items."""
+  data: [Instansi!]!
+}
+
+"""A paginated list of Laporan items."""
+type LaporanPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Laporan items."""
+  data: [Laporan!]!
+}
+
+"""A paginated list of Warga items."""
+type WargaPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Warga items."""
+  data: [Warga!]!
+}
+
+"""Allowed column names for Query.broadcasts.orderBy."""
+enum QueryBroadcastsOrderByColumn {
+  CREATED_AT
+}
+
+"""Order by clause for Query.broadcasts.orderBy."""
+input QueryBroadcastsOrderByOrderByClause {
+  """The column that is used for ordering."""
+  column: QueryBroadcastsOrderByColumn!
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+}
+
+"""Directions for ordering a list of records."""
+enum SortOrder {
+  """Sort records in ascending order."""
+  ASC
+
+  """Sort records in descending order."""
+  DESC
+}
+
+"""
+Aggregate functions when ordering by a relation without specifying a column.
+"""
+enum OrderByRelationAggregateFunction {
+  """Amount of items."""
+  COUNT
+}
+
+"""
+Aggregate functions when ordering by a relation that may specify a column.
+"""
+enum OrderByRelationWithColumnAggregateFunction {
+  """Average."""
+  AVG
+
+  """Minimum."""
+  MIN
+
+  """Maximum."""
+  MAX
+
+  """Sum."""
+  SUM
+
+  """Amount of items."""
+  COUNT
+}
+
+"""Allows ordering a list of records."""
+input OrderByClause {
+  """The column that is used for ordering."""
+  column: String!
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+}
+
+"""
+Specify if you want to include or exclude trashed results from a query.
+"""
+enum Trashed {
+  """Only return trashed results."""
+  ONLY
+
+  """Return both trashed and non-trashed results."""
+  WITH
+
+  """Only return non-trashed results."""
+  WITHOUT
+}

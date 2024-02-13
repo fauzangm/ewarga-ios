@@ -1,0 +1,48 @@
+query getAllWarga {
+  wargas(instansi_id: 51){
+    data{
+      user{
+        id
+        name
+      }
+      status_perkawinan{
+        id
+        nama
+      }
+      tempat_lahir
+      tgl_lahir
+      id
+      nama
+      alamat
+      no_tlp
+      nik
+      warga_instansi{
+        jabatan{
+          id
+          nama
+        }
+        instansi{
+          creator_id
+          id
+          nama
+        }
+        warga_instansi_peran{
+          peran{
+            id
+            nama
+          }
+        }
+      }
+    }
+  
+    paginatorInfo{
+      total
+      perPage
+      currentPage
+      lastPage
+      count
+      hasMorePages
+      
+    }
+  }
+}

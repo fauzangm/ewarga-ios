@@ -1,0 +1,28 @@
+{
+  "schemaNamespace" : "EwargaGrapqlApi",
+  "input" : {
+    "operationSearchPaths" : [
+      "./Data/GraphQL/Schemas/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "./Data/GraphQL/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./EwargaGrapqlApi",
+      "moduleType" : {
+        "swiftPackageManager" : {
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+      }
+    }
+  }
+}

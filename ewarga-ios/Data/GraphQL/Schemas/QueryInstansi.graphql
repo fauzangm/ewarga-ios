@@ -1,0 +1,13 @@
+query getAllInstansi {
+  instansis{
+  
+    data{
+      nama
+      id
+      instansi_langganan{
+        id
+      }
+    }
+    
+  }
+}

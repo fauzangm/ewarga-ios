@@ -14,6 +14,13 @@
 		22531F152B7B011D000D25C7 /* ewarga_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F142B7B011D000D25C7 /* ewarga_iosTests.swift */; };
 		22531F1F2B7B011D000D25C7 /* ewarga_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F1E2B7B011D000D25C7 /* ewarga_iosUITests.swift */; };
 		22531F212B7B011D000D25C7 /* ewarga_iosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F202B7B011D000D25C7 /* ewarga_iosUITestsLaunchTests.swift */; };
+		22531F312B7B0407000D25C7 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F302B7B0407000D25C7 /* AuthView.swift */; };
+		22531F352B7B07D8000D25C7 /* ApolloNetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F342B7B07D8000D25C7 /* ApolloNetworkHelper.swift */; };
+		22531F382B7B0EC1000D25C7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 22531F372B7B0EC1000D25C7 /* Apollo */; };
+		226A28F12B7B3C9E00B81814 /* schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 226A28F02B7B3C9E00B81814 /* schema.graphqls */; };
+		226A28F32B7B3D8300B81814 /* apollo-codegen-config.json in Sources */ = {isa = PBXBuildFile; fileRef = 226A28F22B7B3D8300B81814 /* apollo-codegen-config.json */; };
+		226A28F82B7B416800B81814 /* QueryWarga.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 226A28F72B7B416800B81814 /* QueryWarga.graphql */; };
+		226A28FC2B7B422800B81814 /* QueryInstansi.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 226A28FB2B7B422800B81814 /* QueryInstansi.graphql */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +51,13 @@
 		22531F1A2B7B011D000D25C7 /* ewarga-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ewarga-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22531F1E2B7B011D000D25C7 /* ewarga_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ewarga_iosUITests.swift; sourceTree = "<group>"; };
 		22531F202B7B011D000D25C7 /* ewarga_iosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ewarga_iosUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		22531F302B7B0407000D25C7 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		22531F342B7B07D8000D25C7 /* ApolloNetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloNetworkHelper.swift; sourceTree = "<group>"; };
+		226A28F02B7B3C9E00B81814 /* schema.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphqls; sourceTree = "<group>"; };
+		226A28F22B7B3D8300B81814 /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
+		226A28F72B7B416800B81814 /* QueryWarga.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryWarga.graphql; sourceTree = "<group>"; };
+		226A28FA2B7B41DC00B81814 /* EwargaGrapqlApi */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EwargaGrapqlApi; path = "ewarga-ios/EwargaGrapqlApi"; sourceTree = "<group>"; };
+		226A28FB2B7B422800B81814 /* QueryInstansi.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryInstansi.graphql; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22531F382B7B0EC1000D25C7 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +89,7 @@
 		22531EF72B7B011B000D25C7 = {
 			isa = PBXGroup;
 			children = (
+				226A28F92B7B41DC00B81814 /* Packages */,
 				22531F022B7B011B000D25C7 /* ewarga-ios */,
 				22531F132B7B011D000D25C7 /* ewarga-iosTests */,
 				22531F1D2B7B011D000D25C7 /* ewarga-iosUITests */,
@@ -94,10 +110,14 @@
 		22531F022B7B011B000D25C7 /* ewarga-ios */ = {
 			isa = PBXGroup;
 			children = (
+				22531F2F2B7B03DC000D25C7 /* ViewModel */,
+				22531F2E2B7B03BD000D25C7 /* Data */,
+				22531F2D2B7B03B0000D25C7 /* UI */,
 				22531F032B7B011B000D25C7 /* ewarga_iosApp.swift */,
 				22531F052B7B011B000D25C7 /* ContentView.swift */,
 				22531F072B7B011D000D25C7 /* Assets.xcassets */,
 				22531F092B7B011D000D25C7 /* Preview Content */,
+				226A28F22B7B3D8300B81814 /* apollo-codegen-config.json */,
 			);
 			path = "ewarga-ios";
 			sourceTree = "<group>";
@@ -127,6 +147,64 @@
 			path = "ewarga-iosUITests";
 			sourceTree = "<group>";
 		};
+		22531F2D2B7B03B0000D25C7 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				22531F302B7B0407000D25C7 /* AuthView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		22531F2E2B7B03BD000D25C7 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				22531F332B7B0799000D25C7 /* GraphQL */,
+				22531F322B7B0792000D25C7 /* Local */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		22531F2F2B7B03DC000D25C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		22531F322B7B0792000D25C7 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		22531F332B7B0799000D25C7 /* GraphQL */ = {
+			isa = PBXGroup;
+			children = (
+				226A28F42B7B40F300B81814 /* Schemas */,
+				226A28F02B7B3C9E00B81814 /* schema.graphqls */,
+				22531F342B7B07D8000D25C7 /* ApolloNetworkHelper.swift */,
+			);
+			path = GraphQL;
+			sourceTree = "<group>";
+		};
+		226A28F42B7B40F300B81814 /* Schemas */ = {
+			isa = PBXGroup;
+			children = (
+				226A28F72B7B416800B81814 /* QueryWarga.graphql */,
+				226A28FB2B7B422800B81814 /* QueryInstansi.graphql */,
+			);
+			path = Schemas;
+			sourceTree = "<group>";
+		};
+		226A28F92B7B41DC00B81814 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				226A28FA2B7B41DC00B81814 /* EwargaGrapqlApi */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +221,9 @@
 			dependencies = (
 			);
 			name = "ewarga-ios";
+			packageProductDependencies = (
+				22531F372B7B0EC1000D25C7 /* Apollo */,
+			);
 			productName = "ewarga-ios";
 			productReference = 22531F002B7B011B000D25C7 /* ewarga-ios.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +296,9 @@
 				Base,
 			);
 			mainGroup = 22531EF72B7B011B000D25C7;
+			packageReferences = (
+				22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
 			productRefGroup = 22531F012B7B011B000D25C7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -232,7 +316,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				22531F0B2B7B011D000D25C7 /* Preview Assets.xcassets in Resources */,
+				226A28F12B7B3C9E00B81814 /* schema.graphqls in Resources */,
 				22531F082B7B011D000D25C7 /* Assets.xcassets in Resources */,
+				226A28FC2B7B422800B81814 /* QueryInstansi.graphql in Resources */,
+				226A28F82B7B416800B81814 /* QueryWarga.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,8 +344,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				226A28F32B7B3D8300B81814 /* apollo-codegen-config.json in Sources */,
 				22531F062B7B011B000D25C7 /* ContentView.swift in Sources */,
+				22531F352B7B07D8000D25C7 /* ApolloNetworkHelper.swift in Sources */,
 				22531F042B7B011B000D25C7 /* ewarga_iosApp.swift in Sources */,
+				22531F312B7B0407000D25C7 /* AuthView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,9 +522,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "id.go.ewarga.ewarga-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -461,9 +554,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "id.go.ewarga.ewarga-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -583,6 +679,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		22531F372B7B0EC1000D25C7 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 22531EF82B7B011B000D25C7 /* Project object */;
 }
