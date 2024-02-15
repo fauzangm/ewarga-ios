@@ -26,29 +26,46 @@ struct AuthView: View {
                     .lineSpacing(6)
                 
                 
-                Button(action: {
-                    // Action untuk tombol login
-                }) {
-                    Text("MASUK DENGAN GOOGLE")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color("primaryColor"))
-                        .foregroundColor(.white)
-                        .cornerRadius(16) // Radius tombol
+                VStack {
+                    Button(action: {
+                        // Action untuk tombol login
+                    }) {
+                        Text("MASUK DENGAN GOOGLE")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color("primaryColor"))
+                            .foregroundColor(.white)
+                            .cornerRadius(16) // Radius tombol
+                    }
+                    .padding(.bottom)
+                    
+                    HStack {
+                        Rectangle()
+                              .frame(height: 1)
+                              .foregroundColor(.white)
+                          
+                          Text("ATAU")
+                              .foregroundColor(.white)
+                          
+                          Rectangle()
+                              .frame(height: 1)
+                              .foregroundColor(.white)
+                    }
+                    .padding(.vertical, 8)
+                    
+                    Button(action: {
+                        // Action untuk tombol register
+                    }) {
+                        Text("DAFTAR DENGAN GOOGLE")
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .foregroundColor(Color("primaryColor"))
+                            .cornerRadius(16) // Radius tombol
+                    }
                 }
-                .padding(.bottom)
-                
-                
-                Button(action: {
-                    // Action untuk tombol register
-                }) {
-                    Text("DAFTAR DENGAN GOOGLE")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
-                        .foregroundColor(Color("primaryColor"))
-                        .cornerRadius(16) // Radius tombol
-                }
+
+             
                 
             
                 (
