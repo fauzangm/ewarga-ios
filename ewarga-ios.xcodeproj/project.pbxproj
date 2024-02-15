@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22098FA32B7DF87A00466644 /* EwargaGrapqlApi in Frameworks */ = {isa = PBXBuildFile; productRef = 22098FA22B7DF87A00466644 /* EwargaGrapqlApi */; };
+		22098FA62B7DF8C700466644 /* ApolloError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22098FA52B7DF8C700466644 /* ApolloError.swift */; };
 		22531F042B7B011B000D25C7 /* ewarga_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F032B7B011B000D25C7 /* ewarga_iosApp.swift */; };
 		22531F062B7B011B000D25C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F052B7B011B000D25C7 /* ContentView.swift */; };
 		22531F082B7B011D000D25C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22531F072B7B011D000D25C7 /* Assets.xcassets */; };
@@ -47,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22098FA52B7DF8C700466644 /* ApolloError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloError.swift; sourceTree = "<group>"; };
 		22531F002B7B011B000D25C7 /* ewarga-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ewarga-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22531F032B7B011B000D25C7 /* ewarga_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ewarga_iosApp.swift; sourceTree = "<group>"; };
 		22531F052B7B011B000D25C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,6 +81,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22531F382B7B0EC1000D25C7 /* Apollo in Frameworks */,
+				22098FA32B7DF87A00466644 /* EwargaGrapqlApi in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +215,7 @@
 			children = (
 				226A29132B7DB31F00B81814 /* ApolloClient.swift */,
 				226A29252B7DBC2F00B81814 /* Constans.swift */,
+				22098FA52B7DF8C700466644 /* ApolloError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			name = "ewarga-ios";
 			packageProductDependencies = (
 				22531F372B7B0EC1000D25C7 /* Apollo */,
+				22098FA22B7DF87A00466644 /* EwargaGrapqlApi */,
 			);
 			productName = "ewarga-ios";
 			productReference = 22531F002B7B011B000D25C7 /* ewarga-ios.app */;
@@ -322,7 +328,7 @@
 				};
 			};
 			buildConfigurationList = 22531EFB2B7B011B000D25C7 /* Build configuration list for PBXProject "ewarga-ios" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -332,6 +338,7 @@
 			mainGroup = 22531EF72B7B011B000D25C7;
 			packageReferences = (
 				22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				22098FA12B7DF87A00466644 /* XCLocalSwiftPackageReference "ewarga-ios/EwargaGrapqlApi" */,
 			);
 			productRefGroup = 22531F012B7B011B000D25C7 /* Products */;
 			projectDirPath = "";
@@ -379,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				226A29292B7DBC9F00B81814 /* SessionTokenHolder.swift in Sources */,
+				22098FA62B7DF8C700466644 /* ApolloError.swift in Sources */,
 				226A28F32B7B3D8300B81814 /* apollo-codegen-config.json in Sources */,
 				22531F062B7B011B000D25C7 /* ContentView.swift in Sources */,
 				226A29262B7DBC2F00B81814 /* Constans.swift in Sources */,
@@ -720,6 +728,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		22098FA12B7DF87A00466644 /* XCLocalSwiftPackageReference "ewarga-ios/EwargaGrapqlApi" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "ewarga-ios/EwargaGrapqlApi";
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -732,6 +747,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		22098FA22B7DF87A00466644 /* EwargaGrapqlApi */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EwargaGrapqlApi;
+		};
 		22531F372B7B0EC1000D25C7 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */;

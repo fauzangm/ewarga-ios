@@ -18,15 +18,23 @@ struct AuthView: View {
             
             VStack(spacing : 20){
                 Spacer()
+                Text("Selamat Datang di eWarga, Digitalisasi pengelolaan informasi wilayah menggunakan teknologi terbaru!")
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
+                    .padding(.bottom,32)
+                    .lineSpacing(6)
+                
+                
                 Button(action: {
                     // Action untuk tombol login
                 }) {
-                    Text("Login")
+                    Text("MASUK DENGAN GOOGLE")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color("primaryColor"))
                         .foregroundColor(.white)
-                        .cornerRadius(10) // Radius tombol
+                        .cornerRadius(16) // Radius tombol
                 }
                 .padding(.bottom)
                 
@@ -34,16 +42,36 @@ struct AuthView: View {
                 Button(action: {
                     // Action untuk tombol register
                 }) {
-                    Text("Register")
+                    Text("DAFTAR DENGAN GOOGLE")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10) // Radius tombol
+                        .background(Color.white)
+                        .foregroundColor(Color("primaryColor"))
+                        .cornerRadius(16) // Radius tombol
                 }
+                
+            
+                (
+                    Text("Dengan melanjutkan, berarti Anda menyetujui ")
+                        .foregroundColor(.white)
+                    + Text("Persyaratan Layanan")
+                        .underline(true, color: Color("primaryColor"))
+                        .foregroundColor(Color("primaryColor"))
+                    + Text(" dan menyatakan bahwa Anda telah membaca ")
+                        .foregroundColor(.white)
+                    + Text("Kebijakan Privasi")
+                        .underline(true, color: Color("primaryColor"))
+                        .foregroundColor(Color("primaryColor"))
+                    + Text("Kami.")
+                        .foregroundColor(.white)
+                )
+                .lineSpacing(6)
+                .multilineTextAlignment(.center)
+                
+
                 Spacer()
             }
-            .padding()
+            .padding(32)
         }
         
     }
