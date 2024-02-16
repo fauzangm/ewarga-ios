@@ -76,30 +76,32 @@ struct WargaView: View {
                     Spacer()
                 }
                 
-                SearchBar(text: $searching)
+                SearchBar(hint : "Cari Warga",text: $searching)
                 
                 ScrollView {
-                         VStack {
-                             ForEach(filteredSiswas, id: \.id) { siswa in
-                                 HStack {
-                                     Text(siswa.nama)
-                                         .padding(.leading, 16)
-                                         .foregroundColor(.black)
-                                     Spacer()
-                                 }
-                                 .padding()
-                                 .background(Color.white)
-                                 .cornerRadius(8)
-                                 .shadow(radius: 4)
-                                 .padding(.horizontal, 16)
-                             }
-                         }
-                         .padding()
-                        
-                     }
+                    VStack {
+                        ForEach(filteredSiswas, id: \.id) { siswa in
+                            HStack {
+                                Text(siswa.nama)
+                                    .padding(.leading, 16)
+                                    .foregroundColor(.black)
+                                Spacer()
+                                
+                                
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(radius: 4)
+                            .padding(.horizontal, 16)
+                        }
+                    }
+                    .padding()
+                    
+                }
                 Spacer()
             }
-            .padding(.horizontal, 24)
+            .padding()
         }
         .background(Color("bgColor"))
         .onAppear {
@@ -117,21 +119,4 @@ struct WargaView: View {
 //}
 
 
-struct SearchBar: View {
-    @Binding var text: String
-    
-    var body: some View {
-        HStack {
-            TextField("Search", text: $text)
-                .padding(.leading, 30)
-            Spacer()
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
-                .padding()
-        }
-        .padding(8)
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(8)
-        .padding(.horizontal, 24)
-    }
-}
+

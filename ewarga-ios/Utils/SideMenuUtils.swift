@@ -10,6 +10,7 @@ enum SideMenuRowType: Int, CaseIterable{
     case home = 0
     case warga
     case broadcast
+    case logout
     
     var title: String{
         switch self {
@@ -19,6 +20,9 @@ enum SideMenuRowType: Int, CaseIterable{
             return "Warga"
         case .broadcast:
             return "Broadcast"
+            
+        case .logout:
+            return "Logout"
         }
     }
     
@@ -30,6 +34,8 @@ enum SideMenuRowType: Int, CaseIterable{
             return "favorite"
         case .broadcast:
             return "chat"
+        case .logout:
+            return "logout"
         }
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject private var viewModel : MasterViewModel
     @State var presentSideMenu = false
     @State var selectedSideMenuTab = 0
      
@@ -22,11 +23,18 @@ struct MainView: View {
                  BroadcastView(presentSideMenu: $presentSideMenu)
                      .tag(2)
              }
+             .onChange(of: selectedSideMenuTab) { newValue in
+                       if newValue == 3 {
+                           // Perform logout action
+                           viewModel.logout()
+                       }
+                   }
              
              SideMenu(isShowing: $presentSideMenu, content: AnyView(SideMenuView(selectedSideMenuTab: $selectedSideMenuTab, presentSideMenu: $presentSideMenu)))
          }
      }
 }
+
 
 //#Preview {
 //    MainView()

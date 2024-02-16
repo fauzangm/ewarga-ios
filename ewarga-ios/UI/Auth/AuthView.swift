@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AuthView: View {
+    @EnvironmentObject private var viewModel : MasterViewModel
     var body: some View {
         ZStack{
             Image("ilust_bg_auth")
@@ -29,6 +30,8 @@ struct AuthView: View {
                 VStack {
                     Button(action: {
                         // Action untuk tombol login
+                        viewModel.login(token: "token")
+                     
                     }) {
                         Text("MASUK DENGAN GOOGLE")
                             .padding()
