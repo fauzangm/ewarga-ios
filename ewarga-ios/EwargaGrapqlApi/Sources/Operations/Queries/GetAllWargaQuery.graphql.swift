@@ -7,10 +7,16 @@ public class GetAllWargaQuery: GraphQLQuery {
   public static let operationName: String = "getAllWarga"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query getAllWarga { wargas(instansi_id: 51) { __typename data { __typename user { __typename id name } status_perkawinan { __typename id nama } tempat_lahir tgl_lahir id nama alamat no_tlp nik warga_instansi { __typename jabatan { __typename id nama } instansi { __typename creator_id id nama } warga_instansi_peran { __typename peran { __typename id nama } } } } paginatorInfo { __typename total perPage currentPage lastPage count hasMorePages } } }"#
+      #"query getAllWarga($instansiId: Int!) { wargas(instansi_id: $instansiId) { __typename data { __typename user { __typename id name } status_perkawinan { __typename id nama } tempat_lahir tgl_lahir id nama alamat no_tlp nik warga_instansi { __typename jabatan { __typename id nama } instansi { __typename creator_id id nama } warga_instansi_peran { __typename peran { __typename id nama } } } } paginatorInfo { __typename total perPage currentPage lastPage count hasMorePages } } }"#
     ))
 
-  public init() {}
+  public var instansiId: Int
+
+  public init(instansiId: Int) {
+    self.instansiId = instansiId
+  }
+
+  public var __variables: Variables? { ["instansiId": instansiId] }
 
   public struct Data: EwargaGrapqlApi.SelectionSet {
     public let __data: DataDict
@@ -18,7 +24,7 @@ public class GetAllWargaQuery: GraphQLQuery {
 
     public static var __parentType: ApolloAPI.ParentType { EwargaGrapqlApi.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
-      .field("wargas", Wargas.self, arguments: ["instansi_id": 51]),
+      .field("wargas", Wargas.self, arguments: ["instansi_id": .variable("instansiId")]),
     ] }
 
     public var wargas: Wargas { __data["wargas"] }

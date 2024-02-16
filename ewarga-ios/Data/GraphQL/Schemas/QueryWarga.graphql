@@ -1,5 +1,5 @@
-query getAllWarga {
-  wargas(instansi_id: 51){
+query getAllWarga($instansiId : Int!) {
+  wargas(instansi_id: $instansiId){
     data{
       user{
         id

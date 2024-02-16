@@ -36,6 +36,9 @@
 		226A291F2B7DB53700B81814 /* InterceptorBearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A291E2B7DB53700B81814 /* InterceptorBearer.swift */; };
 		226A29262B7DBC2F00B81814 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A29252B7DBC2F00B81814 /* Constans.swift */; };
 		226A29292B7DBC9F00B81814 /* SessionTokenHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A29282B7DBC9F00B81814 /* SessionTokenHolder.swift */; };
+		22E371BF2B7EF85C00C4D53E /* WargaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E371BE2B7EF85C00C4D53E /* WargaViewModel.swift */; };
+		22E371C12B7EFB2F00C4D53E /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E371C02B7EFB2F00C4D53E /* ServiceError.swift */; };
+		22E371C32B7EFEE100C4D53E /* BuilderMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E371C22B7EFEE100C4D53E /* BuilderMain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,9 @@
 		226A29242B7DB83800B81814 /* EwargaGrapqlApi */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = EwargaGrapqlApi; sourceTree = "<group>"; };
 		226A29252B7DBC2F00B81814 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		226A29282B7DBC9F00B81814 /* SessionTokenHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTokenHolder.swift; sourceTree = "<group>"; };
+		22E371BE2B7EF85C00C4D53E /* WargaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WargaViewModel.swift; sourceTree = "<group>"; };
+		22E371C02B7EFB2F00C4D53E /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		22E371C22B7EFEE100C4D53E /* BuilderMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderMain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +272,7 @@
 				226A291A2B7DB4BA00B81814 /* Network.swift */,
 				226A291C2B7DB51200B81814 /* NetworkInterceptorProvider.swift */,
 				226A291E2B7DB53700B81814 /* InterceptorBearer.swift */,
+				22E371C02B7EFB2F00C4D53E /* ServiceError.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -277,6 +284,7 @@
 				226A29252B7DBC2F00B81814 /* Constans.swift */,
 				22098FA52B7DF8C700466644 /* ApolloError.swift */,
 				22098FB02B7E121600466644 /* SideMenuUtils.swift */,
+				22E371C22B7EFEE100C4D53E /* BuilderMain.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -285,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				226A29172B7DB3C100B81814 /* InstansiViewModel.swift */,
+				22E371BE2B7EF85C00C4D53E /* WargaViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -458,10 +467,13 @@
 				226A29262B7DBC2F00B81814 /* Constans.swift in Sources */,
 				22531F042B7B011B000D25C7 /* ewarga_iosApp.swift in Sources */,
 				22531F312B7B0407000D25C7 /* AuthView.swift in Sources */,
+				22E371C12B7EFB2F00C4D53E /* ServiceError.swift in Sources */,
 				22098FBD2B7E135000466644 /* BroadcastView.swift in Sources */,
+				22E371BF2B7EF85C00C4D53E /* WargaViewModel.swift in Sources */,
 				226A29142B7DB31F00B81814 /* ApolloClient.swift in Sources */,
 				226A291B2B7DB4BA00B81814 /* Network.swift in Sources */,
 				22098FBF2B7E139700466644 /* SideMenu.swift in Sources */,
+				22E371C32B7EFEE100C4D53E /* BuilderMain.swift in Sources */,
 				226A291F2B7DB53700B81814 /* InterceptorBearer.swift in Sources */,
 				226A291D2B7DB51200B81814 /* NetworkInterceptorProvider.swift in Sources */,
 				226A29182B7DB3C100B81814 /* InstansiViewModel.swift in Sources */,
