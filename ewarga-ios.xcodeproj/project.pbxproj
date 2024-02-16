@@ -42,6 +42,7 @@
 		22E371C62B7F047A00C4D53E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E371C52B7F047A00C4D53E /* SearchBar.swift */; };
 		22F9063B2B7F369E00740E4D /* MasterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F9063A2B7F369E00740E4D /* MasterViewModel.swift */; };
 		22F9063D2B7F3B1000740E4D /* PageMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F9063C2B7F3B1000740E4D /* PageMain.swift */; };
+		22F9063F2B7F3E0E00740E4D /* FormBroadcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F9063E2B7F3E0E00740E4D /* FormBroadcastView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		22E371C52B7F047A00C4D53E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		22F9063A2B7F369E00740E4D /* MasterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewModel.swift; sourceTree = "<group>"; };
 		22F9063C2B7F3B1000740E4D /* PageMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageMain.swift; sourceTree = "<group>"; };
+		22F9063E2B7F3E0E00740E4D /* FormBroadcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormBroadcastView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				22098FBC2B7E135000466644 /* BroadcastView.swift */,
+				22F9063E2B7F3E0E00740E4D /* FormBroadcastView.swift */,
 			);
 			path = Broadcast;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				22E371C32B7EFEE100C4D53E /* BuilderMain.swift in Sources */,
 				226A291F2B7DB53700B81814 /* InterceptorBearer.swift in Sources */,
 				226A291D2B7DB51200B81814 /* NetworkInterceptorProvider.swift in Sources */,
+				22F9063F2B7F3E0E00740E4D /* FormBroadcastView.swift in Sources */,
 				226A29182B7DB3C100B81814 /* InstansiViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
