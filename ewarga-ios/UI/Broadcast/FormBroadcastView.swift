@@ -12,7 +12,14 @@ struct FormBroadcastView: View {
     @State private var judul = ""
     @State private var deskripsi = ""
     @State private var coverGambar = ""
-    @State private var selectedFile: URL?
+    @State private var selectedFileName = "Pilih Cover Gambar"
+    @State private var selectedFile: URL? = nil
+    @State private var showPicker = false
+    private var errorService = ServiceError()
+    
+    public init(isFormBroadcast: Binding<Bool>) {
+          self._isFormBroadcast = isFormBroadcast
+      }
     var body: some View {
         NavigationStack{
             VStack(alignment: .leading){
@@ -69,9 +76,12 @@ struct FormBroadcastView: View {
                                     .stroke(Color.gray, lineWidth: 1)
                                     .frame(maxHeight: 50)
                                 HStack{
-                                    Text("Pilih Gambar")
+                                    Text(selectedFileName)
+                                        .onTapGesture {
+                                            showPicker.toggle()
+                                        }
                                     Spacer()
-                                    if let selectedFile = selectedFile {
+                                    if selectedFile != nil {
                                         Image(systemName: "xmark")
                                             .foregroundColor(.black)
                                             .padding(4)
@@ -162,6 +172,27 @@ struct FormBroadcastView: View {
                 
             }
             .padding()
+            .fileImporter(
+                isPresented: $showPicker,
+                allowedContentTypes: [.pdf, .png, .jpeg],
+                allowsMultipleSelection: false,
+                onCompletion: { result in
+                    do {
+                        let fileURL = try result.get()
+
+                        let doc = fileURL.first
+                        if doc == nil {
+                            throw AppError.applicationError(500, "File tidak ditemukan")
+                        }
+
+                        selectedFile = doc
+                        selectedFileName = doc?.lastPathComponent ?? "Pilih Cover Gambar"
+
+                    } catch {
+                        errorService.raiseError(error: error)
+                    }
+                }
+            )
         }
         .navigationBarBackButtonHidden()
     }
