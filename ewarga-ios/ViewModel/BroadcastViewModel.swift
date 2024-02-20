@@ -19,26 +19,24 @@ class BroadcastViewModel : ObservableObject {
     
     func createBroadcast(data: EwargaGrapqlApi.CreateBroadcastsMutation, fileUrl: URL?, filename: String?) async {
         do {
-            
             _ = try await dataSource.createBroadcast(data: data, fileUrl: fileUrl, filename: filename)
-            
-            DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+            DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                print("succes")
+                print("success")
                 self.isSuccesPost.toggle()
                 self.isLoading = false
             }
-            
         } catch {
-            DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+            DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                print("gagal")
+                print("failed")
                 self.isLoading = false
-                self.isError.toggle() // Perbarui isError di thread utama
-                self.errorMessage = "\(error)" // Perbarui errorMessage di thread utama
+                self.isError.toggle() // Update isError on the main thread
+                self.errorMessage = "\(error)" // Update errorMessage on the main thread
             }
         }
     }
+
     
     //    func create(data: EwargaGrapqlApi.CreateBroadcastsMutation,fileUrl : URL,filename:String) async throws -> Bool {
     //        do {

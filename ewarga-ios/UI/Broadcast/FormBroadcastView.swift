@@ -17,6 +17,7 @@ struct FormBroadcastView: View {
     @State private var selectedFile: URL? = nil
     @State private var fileName: String? = nil
     @State private var showPicker = false
+    @State private var showError = false
     @State private var inputan : CreateBroadcastsMutation? = nil
     
     //Network
@@ -84,9 +85,15 @@ struct FormBroadcastView: View {
                 }
                 ZStack{
                     EmptyView()
-                        .onReceive(viewModel.$isSuccesPost) { isSuccessPost in
-                            print("cek issceus = \(isSuccessPost)")
-                            isFormBroadcast.toggle()
+                        .onReceive(viewModel.$isSuccesPost.receive(on: DispatchQueue.main)) { isSuccessPost in
+                            if(isSuccessPost == true){
+                                viewModel.isError = false
+                                viewModel.isLoading = false
+                                viewModel.isSuccesPost = false
+                                isFormBroadcast.toggle()
+                            }
+                     
+                            print("cek isSuccess = \(isSuccessPost)")
                         }
                     if viewModel.isLoading {
                         ProgressView()
@@ -223,9 +230,17 @@ struct FormBroadcastView: View {
                 
                 
             }
-            .alert(isPresented: $viewModel.isError){
+            .onReceive(viewModel.$isError.receive(on: DispatchQueue.main)){ isError in
+                if(isError == true){
+                    viewModel.isError = false
+                    viewModel.isLoading = false
+                    viewModel.isSuccesPost = false
+                    showError.toggle()
+                }
+            }
+            .alert(isPresented: $showError){
                 Alert(title: Text("Terjadi Kesalahan"),message: Text("\(viewModel.errorMessage)"),dismissButton: .default(Text("OK")){
-                    viewModel.isError.toggle()
+                    
                 })
             }
             .padding()
