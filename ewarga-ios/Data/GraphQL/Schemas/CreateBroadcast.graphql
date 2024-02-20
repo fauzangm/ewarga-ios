@@ -1,7 +1,7 @@
 mutation createBroadcasts ($instansiId : ID! ,
     $judul : String! ,
     $body : String!,
-    $fileCover : Upload! ,
+    $fileCover : Upload ,
     $lampiran : [Upload],
     $broadCastSyarat: [BroadcastSyaratInput],
     $publish : statusBroadcast!){

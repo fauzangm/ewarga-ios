@@ -11,64 +11,73 @@ import ApolloAPI
 import EwargaGrapqlApi
 
 class BroadcastViewModel : ObservableObject {
+    private let dataSource  = BroadcastRepository()
+//    @Published var isLoading = false
+    @Published var isSuccesPost = false
+    @Published var isError = false
+    @Published var errorMessage = "Terjadi masalah saat menghubungi server. Silakan coba lagi nanti"
     
-    //    func load(id : Int) async throws -> [EwargaGrapqlApi.GetAllWargaQuery.Data.Wargas.Datum] {
-    //        var res = [EwargaGrapqlApi.GetAllWargaQuery.Data.Wargas.Datum]()
-    //        let results = Network.shared.apollo.fetch(
-    //            query: EwargaGrapqlApi.GetAllWargaQuery(instansiId: id))
+    func createBroadcast(data: EwargaGrapqlApi.CreateBroadcastsMutation, fileUrl: URL?, filename: String?) async {
+        do {
+            guard let doc = fileUrl else {
+                print("cek file tidak valid")
+                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+                    guard self != nil else { return }
+                }
+                
+                _ = try await dataSource.createBroadcast(data: data, fileUrl: nil, filename: nil)
+                
+                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+                    guard let self = self else { return }
+                    self.isSuccesPost = true // Perbarui isSuccesPost di thread utama
+                }
+                throw AppError.applicationError(500, "File tidak valid")
+            }
+            defer {
+                print("cekDefer")
+                doc.stopAccessingSecurityScopedResource()
+            }
+            
+            if doc.startAccessingSecurityScopedResource() {
+                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+                    guard self != nil else { return }
+                }
+                
+                _ = try await dataSource.createBroadcast(data: data, fileUrl: fileUrl, filename: filename)
+                
+                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+                    guard let self = self else { return }
+                    self.isSuccesPost = true // Perbarui isSuccesPost di thread utama
+                }
+            } else {
+                print("cekDefer")
+                throw AppError.applicationError(500, "File invalid")
+            }
+        } catch {
+            DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+                guard let self = self else { return }
+                self.isError = true // Perbarui isError di thread utama
+                self.errorMessage = "\(error.localizedDescription)" // Perbarui errorMessage di thread utama
+            }
+        }
+    }
+
+    //    func create(data: EwargaGrapqlApi.CreateBroadcastsMutation,fileUrl : URL,filename:String) async throws -> Bool {
     //        do {
-    //            for try await result in results {
-    //                if result.errors != nil {
-    //                    throw AppError.graphError(result.errors)
-    //                }
-    //
-    //                if let s = result.data?.wargas.data {
-    //                    res = s
-    //                }
-    //            }
-    //
-    //            return res
-    //        } catch {
-    //            print(error)
-    //            throw error
-    //        }
-    //    }
-    //
-    //    func detail(id: Int) async throws -> PPDBMandiriAPI.SiswaDetailQuery.Data.SiswaProfil? {
-    //        var res: PPDBMandiriAPI.SiswaDetailQuery.Data.SiswaProfil?
-    //        let results = Network.shared.apollo.fetch(
-    //            query: PPDBMandiriAPI.SiswaDetailQuery(siswaId: id)
-    //        )
-    //        do {
-    //            for try await result in results {
-    //                // passtikan tidak ada error
-    //                if result.errors != nil {
-    //                    throw AppError.graphError(result.errors)
-    //                }
-    //
-    //                if let s = result.data?.siswaProfil {
-    //                    res = s
-    //                }
-    //            }
-    //            return res
-    //        } catch {
-    //            print(error)
-    //            throw error
-    //        }
-    //    }
-    //
-    //    func update(id: Int, update: PPDBMandiriAPI.AddSiswaInput) async throws -> Bool {
-    //        do {
-    //            let res = try await Network.shared.apollo.perform(
-    //                mutation: PPDBMandiriAPI.SiswaUpdateMutation(siswaId: id, siswa: update)
+    //            let imageExt = (filename as NSString).pathExtension.lowercased()
+    //            print("cek ext \(imageExt)")
+    //            let file = try GraphQLFile(fieldName: "fileCover", originalName: filename, mimeType: "application/\(imageExt)", fileURL: fileUrl)
+    //            let res = try await Network.shared.apollo.upload(
+    //                operation: data,
+    //                files: [file]
     //            )
-    //            // passtikan tidak ada error
     //            if res.errors != nil {
     //                throw AppError.graphError(res.errors)
     //            }
-    //            if (res.data?.siswaProfilUpdate?.id) != nil {
+    //            if (res.data?.broadcastCreate) != nil {
     //                return true
     //            }
+    //
     //
     //            return false
     //        } catch {
@@ -76,53 +85,6 @@ class BroadcastViewModel : ObservableObject {
     //            throw error
     //        }
     //    }
-    //
-    func create(data: EwargaGrapqlApi.CreateBroadcastsMutation,fileUrl : URL,filename:String) async throws -> Bool {
-        do {
-            let imageExt = (filename as NSString).pathExtension.lowercased()
-            print("cek ext \(imageExt)")
-            let file = try GraphQLFile(fieldName: "fileCover", originalName: filename, mimeType: "application/\(imageExt)", fileURL: fileUrl)
-            let res = try await Network.shared.apollo.upload(
-                operation: data,
-                files: [file]
-            )
-            
-            // pengecekan Error Versi Lengkapnya
-            //            if let errors = res.errors {
-            //                for error in errors {
-            //                    print("Error message: \(error.message) dengan file \(file.mimeType)")
-            //
-            //                    if let extensions = error.extensions {
-            //                        print("Debug message: \(extensions["debugMessage"] ?? "No debug message")")
-            //                        print("File: \(extensions["file"] ?? "No file")")
-            //                        print("Line: \(extensions["line"] ?? "No line")")
-            //                        if let trace = extensions["trace"] as? [[String: Any]] {
-            //                            print("Trace:")
-            //                            for traceItem in trace {
-            //                                if let file = traceItem["file"] as? String,
-            //                                   let line = traceItem["line"] as? Int,
-            //                                   let call = traceItem["call"] as? String {
-            //                                    print("- File: \(file), Line: \(line), Call: \(call)")
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-            //                }
-            //            }
-            if res.errors != nil {
-                throw AppError.graphError(res.errors)
-            }
-            if (res.data?.broadcastCreate) != nil {
-                return true
-            }
-            
-            
-            return false
-        } catch {
-            print(error)
-            throw error
-        }
-    }
     //
     //    func drop(id: Int) async throws -> Bool {
     //        do {
@@ -144,3 +106,28 @@ class BroadcastViewModel : ObservableObject {
     //        }
     //    }
 }
+
+
+
+// pengecekan Error Versi Lengkapnya
+//            if let errors = res.errors {
+//                for error in errors {
+//                    print("Error message: \(error.message) dengan file \(file.mimeType)")
+//
+//                    if let extensions = error.extensions {
+//                        print("Debug message: \(extensions["debugMessage"] ?? "No debug message")")
+//                        print("File: \(extensions["file"] ?? "No file")")
+//                        print("Line: \(extensions["line"] ?? "No line")")
+//                        if let trace = extensions["trace"] as? [[String: Any]] {
+//                            print("Trace:")
+//                            for traceItem in trace {
+//                                if let file = traceItem["file"] as? String,
+//                                   let line = traceItem["line"] as? Int,
+//                                   let call = traceItem["call"] as? String {
+//                                    print("- File: \(file), Line: \(line), Call: \(call)")
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }

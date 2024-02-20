@@ -7,13 +7,13 @@ public class CreateBroadcastsMutation: GraphQLMutation {
   public static let operationName: String = "createBroadcasts"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"mutation createBroadcasts($instansiId: ID!, $judul: String!, $body: String!, $fileCover: Upload!, $lampiran: [Upload], $broadCastSyarat: [BroadcastSyaratInput], $publish: statusBroadcast!) { broadcastCreate( input: { instansi_id: $instansiId, judul: $judul, body: $body, status: $publish, file_cover: $fileCover, lampirans: $lampiran, broadcast_syarat: $broadCastSyarat } ) { __typename id judul } }"#
+      #"mutation createBroadcasts($instansiId: ID!, $judul: String!, $body: String!, $fileCover: Upload, $lampiran: [Upload], $broadCastSyarat: [BroadcastSyaratInput], $publish: statusBroadcast!) { broadcastCreate( input: { instansi_id: $instansiId, judul: $judul, body: $body, status: $publish, file_cover: $fileCover, lampirans: $lampiran, broadcast_syarat: $broadCastSyarat } ) { __typename id judul } }"#
     ))
 
   public var instansiId: ID
   public var judul: String
   public var body: String
-  public var fileCover: Upload
+  public var fileCover: GraphQLNullable<Upload>
   public var lampiran: GraphQLNullable<[Upload?]>
   public var broadCastSyarat: GraphQLNullable<[BroadcastSyaratInput?]>
   public var publish: GraphQLEnum<StatusBroadcast>
@@ -22,7 +22,7 @@ public class CreateBroadcastsMutation: GraphQLMutation {
     instansiId: ID,
     judul: String,
     body: String,
-    fileCover: Upload,
+    fileCover: GraphQLNullable<Upload>,
     lampiran: GraphQLNullable<[Upload?]>,
     broadCastSyarat: GraphQLNullable<[BroadcastSyaratInput?]>,
     publish: GraphQLEnum<StatusBroadcast>
