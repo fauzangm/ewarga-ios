@@ -17,6 +17,7 @@ struct FormBroadcastView: View {
     @State private var selectedFile: URL? = nil
     @State private var fileName: String? = nil
     @State private var showPicker = false
+    @State private var inputan : CreateBroadcastsMutation? = nil
     
     //Network
     //    @ObservedObject private var viewModel : CreateBroadcastsMutation? = nil
@@ -29,41 +30,29 @@ struct FormBroadcastView: View {
         self._isFormBroadcast = isFormBroadcast
     }
     
-    //    private func doSubmit() async {
-    //        guard !isLoading && !isProcessing else {
-    //            return
-    //        }
-    //
-    //        isProcessing = true
-    //        defer {
-    //            isProcessing = false
-    //        }
-    //
-    //        do {
-    //            guard let doc = selectedFile else {
-    //                print("cek file tidak valid")
-    //                throw AppError.applicationError(500, "File tidak valid")
-    //            }
-    //            defer {
-    //                print("cekDefer")
-    //                doc.stopAccessingSecurityScopedResource()
-    //            }
-    //
-    //            if doc.startAccessingSecurityScopedResource() {
-    //                _ = try await viewModel.create(data: inputan!,fileUrl: doc,filename: selectedFileName)
-    //
-    //                // jika berhasil, maka auto dismiss
-    //                isFormBroadcast.toggle()
-    //            } else {
-    //                print("cekDefer")
-    //                throw AppError.applicationError(500, "File invalid")
-    //            }
-    //
-    //        } catch {
-    //            errorService.raiseError(error: error)
-    //        }
-    //    }
-    //
+    private func doSubmit() async {
+        do {
+            guard let doc = selectedFile else {
+                print("cek file tidak valid")
+                return await viewModel.createBroadcast(data: inputan!, fileUrl: selectedFile, filename: fileName)
+            }
+            defer {
+                print("cekDefer")
+                doc.stopAccessingSecurityScopedResource()
+            }
+            
+            if doc.startAccessingSecurityScopedResource() {
+                return await viewModel.createBroadcast(data: inputan!, fileUrl: selectedFile, filename: fileName)
+            } else {
+                print("cekDefer")
+                throw AppError.applicationError(500, "File invalid")
+            }
+            
+        } catch {
+            errorService.raiseError(error: error)
+        }
+    }
+    
     
     var body: some View {
         NavigationStack{
@@ -96,15 +85,12 @@ struct FormBroadcastView: View {
                 ZStack{
                     EmptyView()
                         .onReceive(viewModel.$isSuccesPost) { isSuccessPost in
-                            if isSuccessPost {
-                                isFormBroadcast.toggle()
-                            }
+                            print("cek issceus = \(isSuccessPost)")
+                            isFormBroadcast.toggle()
                         }
-//                    if viewModel.isLoading {
-//                        DispatchQueue.main.async {
-//                            ProgressView()
-//                        }
-//                    }
+                    if viewModel.isLoading {
+                        ProgressView()
+                    }
                     ScrollView{
                         VStack(alignment: .leading){
                             
@@ -214,13 +200,14 @@ struct FormBroadcastView: View {
                     
                     Button(action: {
                         print("cek name file  \(selectedFileName)")
+                        viewModel.isLoading.toggle()
                         let statusEnum = StatusBroadcast.draft
                         let graphQLEnum = GraphQLEnum<StatusBroadcast>(rawValue: statusEnum.rawValue)
                         let uploadfile : Upload = selectedFileName
                         let fileCover: GraphQLNullable<Upload>? = fileName != nil ? .some(uploadfile) : nil
-                        let inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: fileCover ?? nil, lampiran: nil, broadCastSyarat: nil, publish: graphQLEnum )
+                        inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: fileCover ?? nil, lampiran: nil, broadCastSyarat: nil, publish: graphQLEnum )
                         Task {
-                            await viewModel.createBroadcast(data: inputan, fileUrl: selectedFile, filename: fileName)
+                            await doSubmit()
                         }
                         
                     }) {
@@ -236,6 +223,11 @@ struct FormBroadcastView: View {
                 
                 
             }
+            .alert(isPresented: $viewModel.isError){
+                Alert(title: Text("Terjadi Kesalahan"),message: Text("\(viewModel.errorMessage)"),dismissButton: .default(Text("OK")){
+                    viewModel.isError.toggle()
+                })
+            }
             .padding()
             .fileImporter(
                 isPresented: $showPicker,
@@ -244,7 +236,6 @@ struct FormBroadcastView: View {
                 onCompletion: { result in
                     do {
                         let fileURL = try result.get()
-                        
                         let doc = fileURL.first
                         if doc == nil {
                             throw AppError.applicationError(500, "File tidak ditemukan")

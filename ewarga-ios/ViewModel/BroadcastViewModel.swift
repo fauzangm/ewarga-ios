@@ -12,56 +12,34 @@ import EwargaGrapqlApi
 
 class BroadcastViewModel : ObservableObject {
     private let dataSource  = BroadcastRepository()
-//    @Published var isLoading = false
+    @Published var isLoading = false
     @Published var isSuccesPost = false
     @Published var isError = false
     @Published var errorMessage = "Terjadi masalah saat menghubungi server. Silakan coba lagi nanti"
     
     func createBroadcast(data: EwargaGrapqlApi.CreateBroadcastsMutation, fileUrl: URL?, filename: String?) async {
         do {
-            guard let doc = fileUrl else {
-                print("cek file tidak valid")
-                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
-                    guard self != nil else { return }
-                }
-                
-                _ = try await dataSource.createBroadcast(data: data, fileUrl: nil, filename: nil)
-                
-                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
-                    guard let self = self else { return }
-                    self.isSuccesPost = true // Perbarui isSuccesPost di thread utama
-                }
-                throw AppError.applicationError(500, "File tidak valid")
-            }
-            defer {
-                print("cekDefer")
-                doc.stopAccessingSecurityScopedResource()
+            
+            _ = try await dataSource.createBroadcast(data: data, fileUrl: fileUrl, filename: filename)
+            
+            DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
+                guard let self = self else { return }
+                print("succes")
+                self.isSuccesPost.toggle()
+                self.isLoading = false
             }
             
-            if doc.startAccessingSecurityScopedResource() {
-                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
-                    guard self != nil else { return }
-                }
-                
-                _ = try await dataSource.createBroadcast(data: data, fileUrl: fileUrl, filename: filename)
-                
-                DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
-                    guard let self = self else { return }
-                    self.isSuccesPost = true // Perbarui isSuccesPost di thread utama
-                }
-            } else {
-                print("cekDefer")
-                throw AppError.applicationError(500, "File invalid")
-            }
         } catch {
             DispatchQueue.main.async { [weak self] in // Pastikan pembaruan dilakukan di thread utama
                 guard let self = self else { return }
-                self.isError = true // Perbarui isError di thread utama
-                self.errorMessage = "\(error.localizedDescription)" // Perbarui errorMessage di thread utama
+                print("gagal")
+                self.isLoading = false
+                self.isError.toggle() // Perbarui isError di thread utama
+                self.errorMessage = "\(error)" // Perbarui errorMessage di thread utama
             }
         }
     }
-
+    
     //    func create(data: EwargaGrapqlApi.CreateBroadcastsMutation,fileUrl : URL,filename:String) async throws -> Bool {
     //        do {
     //            let imageExt = (filename as NSString).pathExtension.lowercased()
