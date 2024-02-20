@@ -1,0 +1,20 @@
+mutation createBroadcasts ($instansiId : ID! ,
+    $judul : String! ,
+    $body : String!,
+    $fileCover : Upload! ,
+    $lampiran : [Upload],
+    $broadCastSyarat: [BroadcastSyaratInput],
+    $publish : statusBroadcast!){
+    broadcastCreate(input: {
+        instansi_id: $instansiId,
+        judul: $judul,
+        body : $body,
+        status: $publish,
+        file_cover: $fileCover,
+        lampirans: $lampiran,
+        broadcast_syarat:  $broadCastSyarat
+    }){
+        id
+        judul
+    }
+}

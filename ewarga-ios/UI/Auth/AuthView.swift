@@ -30,7 +30,7 @@ struct AuthView: View {
                 VStack {
                     Button(action: {
                         // Action untuk tombol login
-                        viewModel.login(token: "token")
+                        viewModel.login(token: "666|CIBt9uwtl7plB1YmsZiRKNVW0osI0Q7USvzkk5Pe049f55ca")
                      
                     }) {
                         Text("MASUK DENGAN GOOGLE")

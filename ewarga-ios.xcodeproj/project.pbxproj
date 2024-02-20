@@ -36,6 +36,8 @@
 		226A291F2B7DB53700B81814 /* InterceptorBearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A291E2B7DB53700B81814 /* InterceptorBearer.swift */; };
 		226A29262B7DBC2F00B81814 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A29252B7DBC2F00B81814 /* Constans.swift */; };
 		226A29292B7DBC9F00B81814 /* SessionTokenHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226A29282B7DBC9F00B81814 /* SessionTokenHolder.swift */; };
+		226CC5D12B82EFB9001C649E /* BroadcastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CC5D02B82EFB9001C649E /* BroadcastViewModel.swift */; };
+		226CC5D32B82F1A6001C649E /* CreateBroadcast.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 226CC5D22B82F1A6001C649E /* CreateBroadcast.graphql */; };
 		22E371BF2B7EF85C00C4D53E /* WargaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E371BE2B7EF85C00C4D53E /* WargaViewModel.swift */; };
 		22E371C12B7EFB2F00C4D53E /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E371C02B7EFB2F00C4D53E /* ServiceError.swift */; };
 		22E371C32B7EFEE100C4D53E /* BuilderMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E371C22B7EFEE100C4D53E /* BuilderMain.swift */; };
@@ -94,6 +96,8 @@
 		226A29242B7DB83800B81814 /* EwargaGrapqlApi */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = EwargaGrapqlApi; sourceTree = "<group>"; };
 		226A29252B7DBC2F00B81814 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		226A29282B7DBC9F00B81814 /* SessionTokenHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTokenHolder.swift; sourceTree = "<group>"; };
+		226CC5D02B82EFB9001C649E /* BroadcastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastViewModel.swift; sourceTree = "<group>"; };
+		226CC5D22B82F1A6001C649E /* CreateBroadcast.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CreateBroadcast.graphql; sourceTree = "<group>"; };
 		22E371BE2B7EF85C00C4D53E /* WargaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WargaViewModel.swift; sourceTree = "<group>"; };
 		22E371C02B7EFB2F00C4D53E /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
 		22E371C22B7EFEE100C4D53E /* BuilderMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderMain.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 			children = (
 				226A28F72B7B416800B81814 /* QueryWarga.graphql */,
 				226A28FB2B7B422800B81814 /* QueryInstansi.graphql */,
+				226CC5D22B82F1A6001C649E /* CreateBroadcast.graphql */,
 			);
 			path = Schemas;
 			sourceTree = "<group>";
@@ -306,6 +311,7 @@
 				226A29172B7DB3C100B81814 /* InstansiViewModel.swift */,
 				22E371BE2B7EF85C00C4D53E /* WargaViewModel.swift */,
 				22F9063A2B7F369E00740E4D /* MasterViewModel.swift */,
+				226CC5D02B82EFB9001C649E /* BroadcastViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -447,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22531F0B2B7B011D000D25C7 /* Preview Assets.xcassets in Resources */,
+				226CC5D32B82F1A6001C649E /* CreateBroadcast.graphql in Resources */,
 				226A290A2B7DB06B00B81814 /* schema.graphqls in Resources */,
 				22531F082B7B011D000D25C7 /* Assets.xcassets in Resources */,
 				226A28FC2B7B422800B81814 /* QueryInstansi.graphql in Resources */,
@@ -490,6 +497,7 @@
 				22531F312B7B0407000D25C7 /* AuthView.swift in Sources */,
 				22E371C12B7EFB2F00C4D53E /* ServiceError.swift in Sources */,
 				22098FBD2B7E135000466644 /* BroadcastView.swift in Sources */,
+				226CC5D12B82EFB9001C649E /* BroadcastViewModel.swift in Sources */,
 				22E371BF2B7EF85C00C4D53E /* WargaViewModel.swift in Sources */,
 				226A29142B7DB31F00B81814 /* ApolloClient.swift in Sources */,
 				22F9063B2B7F369E00740E4D /* MasterViewModel.swift in Sources */,

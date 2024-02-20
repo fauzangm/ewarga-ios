@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-
+import Apollo
+import EwargaGrapqlApi
 struct FormBroadcastView: View {
     @Binding var isFormBroadcast: Bool
     @State private var judul = ""
@@ -15,11 +16,51 @@ struct FormBroadcastView: View {
     @State private var selectedFileName = "Pilih Cover Gambar"
     @State private var selectedFile: URL? = nil
     @State private var showPicker = false
+    
+    //Network
+    @State private var inputan : CreateBroadcastsMutation? = nil
+    @State private var isLoading = false
+    @State private var isProcessing = false
     private var errorService = ServiceError()
+    private var viewModel = BroadcastViewModel()
     
     public init(isFormBroadcast: Binding<Bool>) {
-          self._isFormBroadcast = isFormBroadcast
-      }
+        self._isFormBroadcast = isFormBroadcast
+    }
+    
+    private func doSubmit() async {
+        guard !isLoading && !isProcessing else {
+            return
+        }
+        
+        isProcessing = true
+        defer {
+            isProcessing = false
+        }
+        
+        do {
+            guard let doc = selectedFile else {
+                throw AppError.applicationError(500, "File tidak valid")
+            }
+            defer {
+                doc.stopAccessingSecurityScopedResource()
+            }
+            
+            if doc.startAccessingSecurityScopedResource() {
+                _ = try await viewModel.create(data: inputan!,fileUrl: doc,filename: selectedFileName)
+                
+                // jika berhasil, maka auto dismiss
+                isFormBroadcast.toggle()
+            } else {
+                throw AppError.applicationError(500, "File invalid")
+            }
+            
+        } catch {
+            errorService.raiseError(error: error)
+        }
+    }
+    
+    
     var body: some View {
         NavigationStack{
             VStack(alignment: .leading){
@@ -156,7 +197,13 @@ struct FormBroadcastView: View {
                     }
                     
                     Button(action: {
-                        // Action untuk tombol login
+                        print("cek name file  \(selectedFileName)")
+                        let statusEnum = StatusBroadcast.draft
+                        let graphQLEnum = GraphQLEnum<StatusBroadcast>(rawValue: statusEnum.rawValue)
+                        inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: selectedFileName , lampiran: nil, broadCastSyarat: nil, publish: graphQLEnum )
+                        Task {
+                            await doSubmit()
+                        }
                         
                     }) {
                         Text("Simpan")
@@ -174,20 +221,20 @@ struct FormBroadcastView: View {
             .padding()
             .fileImporter(
                 isPresented: $showPicker,
-                allowedContentTypes: [.pdf, .png, .jpeg],
+                allowedContentTypes: [ .png, .jpeg],
                 allowsMultipleSelection: false,
                 onCompletion: { result in
                     do {
                         let fileURL = try result.get()
-
+                        
                         let doc = fileURL.first
                         if doc == nil {
                             throw AppError.applicationError(500, "File tidak ditemukan")
                         }
-
+                        
                         selectedFile = doc
                         selectedFileName = doc?.lastPathComponent ?? "Pilih Cover Gambar"
-
+                        
                     } catch {
                         errorService.raiseError(error: error)
                     }
