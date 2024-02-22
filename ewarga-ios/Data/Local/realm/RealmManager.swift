@@ -35,7 +35,7 @@ class RealmManager {
 
         // Open the Realm
         do {
-            let realm = try Realm()
+            _ = try Realm()
             // Perform any additional operations with the Realm instance as needed
         } catch {
             // Handle error

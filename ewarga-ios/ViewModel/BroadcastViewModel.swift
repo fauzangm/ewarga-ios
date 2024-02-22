@@ -17,9 +17,10 @@ class BroadcastViewModel : ObservableObject {
     @Published var isError = false
     @Published var errorMessage = "Terjadi masalah saat menghubungi server. Silakan coba lagi nanti"
     
-    func createBroadcast(data: EwargaGrapqlApi.CreateBroadcastsMutation, fileUrl: URL?, filename: String?) async {
+    func createBroadcast(data: EwargaGrapqlApi.CreateBroadcastsMutation, fileUrl: URL?, filename: String?,lampiranURL : [ModelLampiran]?) async {
         do {
-            _ = try await dataSource.createBroadcast(data: data, fileUrl: fileUrl, filename: filename)
+            print("cek lampiran url = \(lampiranURL)")
+            _ = try await dataSource.createBroadcast(data: data, fileUrl: fileUrl, filename: filename,lampiranURL: lampiranURL)
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 print("success")

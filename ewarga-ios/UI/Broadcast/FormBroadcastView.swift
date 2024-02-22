@@ -19,6 +19,8 @@ struct FormBroadcastView: View {
     @State private var fileName: String? = nil
     @State private var showPicker = false
     @State private var showError = false
+//    @State private var lampiranURL : [URL] = []
+    @State private var lampiranURL : [ModelLampiran] = []
     @State private var inputan : CreateBroadcastsMutation? = nil
     
     //Network
@@ -27,6 +29,7 @@ struct FormBroadcastView: View {
     //    @State private var isProcessing = false
     private var errorService = ServiceError()
     @ObservedObject private var viewModel = BroadcastViewModel()
+    @ObservedObject private var viewModelLampiranBroadcast = LampiranBroadcastRealm()
     
     public init(isFormBroadcast: Binding<Bool>) {
         self._isFormBroadcast = isFormBroadcast
@@ -36,7 +39,7 @@ struct FormBroadcastView: View {
         do {
             guard let doc = selectedFile else {
                 print("cek file tidak valid")
-                return await viewModel.createBroadcast(data: inputan!, fileUrl: selectedFile, filename: fileName)
+                return await viewModel.createBroadcast(data: inputan!, fileUrl: selectedFile, filename: fileName,lampiranURL: lampiranURL)
             }
             defer {
                 print("cekDefer")
@@ -44,7 +47,16 @@ struct FormBroadcastView: View {
             }
             
             if doc.startAccessingSecurityScopedResource() {
-                return await viewModel.createBroadcast(data: inputan!, fileUrl: selectedFile, filename: fileName)
+                var fileUrl : [URL] = []
+                viewModelLampiranBroadcast.lampiranBroadcast.forEach { attachment in
+                    // Pastikan properti url tidak nil sebelum menambahkannya ke array
+                    if let url = URL(string: attachment.lampiranItem) {
+                        fileUrl.append(url)
+                    }
+                }
+                fileUrl.append(selectedFile!)
+                print("cek item fileURL = \(fileUrl)")
+                return await viewModel.createBroadcast(data: inputan!, fileUrl: selectedFile, filename: fileName,lampiranURL: lampiranURL)
             } else {
                 print("cekDefer")
                 throw AppError.applicationError(500, "File invalid")
@@ -55,6 +67,28 @@ struct FormBroadcastView: View {
         }
     }
     
+//    private func doLampiran( lampiran  : URL?) {
+//        do {
+//            guard let doc = lampiran else {
+//                print("cek file tidak valid")
+//                throw AppError.applicationError(500, "File invalid")
+//            }
+//            defer {
+//                print("cekDefer")
+//                doc.stopAccessingSecurityScopedResource()
+//            }
+//            
+//            if doc.startAccessingSecurityScopedResource() {
+//                lampiranURL.append(lampiran!)
+//            } else {
+//                print("cekDefer")
+//                throw AppError.applicationError(500, "File invalid")
+//            }
+//            
+//        } catch {
+//            errorService.raiseError(error: error)
+//        }
+//    }
     
     var body: some View {
         NavigationStack{
@@ -93,7 +127,7 @@ struct FormBroadcastView: View {
                                 viewModel.isSuccesPost = false
                                 isFormBroadcast.toggle()
                             }
-                     
+                            
                             print("cek isSuccess = \(isSuccessPost)")
                         }
                     if viewModel.isLoading {
@@ -214,7 +248,34 @@ struct FormBroadcastView: View {
                         let graphQLEnum = GraphQLEnum<StatusBroadcast>(rawValue: statusEnum.rawValue)
                         let uploadfile : Upload = selectedFileName
                         let fileCover: GraphQLNullable<Upload>? = fileName != nil ? .some(uploadfile) : nil
-                        inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: fileCover ?? nil, lampiran: nil, broadCastSyarat: nil, publish: graphQLEnum )
+                        var lampiranItem: GraphQLNullable<[Upload?]> = .none
+                        var listLampiran: [Upload] = []
+                        let item = viewModelLampiranBroadcast.getAttachments()
+                        item.forEach{element in
+                            var item = ModelLampiran()
+                            item.lampiranItem = element.lampiranItem
+                            item.lampiranName = element.lampiranName
+                            lampiranURL.append(item)
+                            let uploadfile : Upload = element.lampiranName
+//                            let fileCover: GraphQLNullable<Upload>? = fileName != nil ? .some(uploadfile) : nil
+                            listLampiran.append(uploadfile)
+                            lampiranItem = .some(listLampiran)
+                        }
+                        
+                  
+                        
+//                        viewModelLampiranBroadcast.lampiranBroadcast.forEach { attachment in
+////                            if let url = URL(string: attachment.lampiranItem) {
+////                                doLampiran(lampiran: url)
+////                            }
+//                            lampiranURL.append(attachment)
+//                            let uploadfile : Upload = attachment.lampiranName
+////                            let fileCover: GraphQLNullable<Upload>? = fileName != nil ? .some(uploadfile) : nil
+//                            listLampiran.append(uploadfile)
+//                            lampiranItem = .some(listLampiran)
+//                        }
+                        
+                        inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: fileCover ?? nil, lampiran: lampiranItem, broadCastSyarat: nil, publish: graphQLEnum )
                         Task {
                             await doSubmit()
                         }
@@ -229,6 +290,11 @@ struct FormBroadcastView: View {
                     }
                 }
                 .padding()
+            }
+            .onAppear{
+                viewModel.isError = false
+                viewModel.isLoading = false
+                viewModel.isSuccesPost = false
             }
             .onReceive(viewModel.$isError.receive(on: DispatchQueue.main)){ isError in
                 if(isError == true){
