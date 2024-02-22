@@ -67,28 +67,6 @@ struct FormBroadcastView: View {
         }
     }
     
-//    private func doLampiran( lampiran  : URL?) {
-//        do {
-//            guard let doc = lampiran else {
-//                print("cek file tidak valid")
-//                throw AppError.applicationError(500, "File invalid")
-//            }
-//            defer {
-//                print("cekDefer")
-//                doc.stopAccessingSecurityScopedResource()
-//            }
-//            
-//            if doc.startAccessingSecurityScopedResource() {
-//                lampiranURL.append(lampiran!)
-//            } else {
-//                print("cekDefer")
-//                throw AppError.applicationError(500, "File invalid")
-//            }
-//            
-//        } catch {
-//            errorService.raiseError(error: error)
-//        }
-//    }
     
     var body: some View {
         NavigationStack{
@@ -257,24 +235,9 @@ struct FormBroadcastView: View {
                             item.lampiranName = element.lampiranName
                             lampiranURL.append(item)
                             let uploadfile : Upload = element.lampiranName
-//                            let fileCover: GraphQLNullable<Upload>? = fileName != nil ? .some(uploadfile) : nil
                             listLampiran.append(uploadfile)
                             lampiranItem = .some(listLampiran)
                         }
-                        
-                  
-                        
-//                        viewModelLampiranBroadcast.lampiranBroadcast.forEach { attachment in
-////                            if let url = URL(string: attachment.lampiranItem) {
-////                                doLampiran(lampiran: url)
-////                            }
-//                            lampiranURL.append(attachment)
-//                            let uploadfile : Upload = attachment.lampiranName
-////                            let fileCover: GraphQLNullable<Upload>? = fileName != nil ? .some(uploadfile) : nil
-//                            listLampiran.append(uploadfile)
-//                            lampiranItem = .some(listLampiran)
-//                        }
-                        
                         inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: fileCover ?? nil, lampiran: lampiranItem, broadCastSyarat: nil, publish: graphQLEnum )
                         Task {
                             await doSubmit()

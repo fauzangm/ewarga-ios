@@ -56,6 +56,13 @@ class LampiranBroadcastRealm : ObservableObject {
           }
       }
     
+    func clearAttachment(){
+        // buatkan fungsi untuk clear
+        try! realm.write {
+              realm.delete(lampiranBroadcast)
+          }
+    }
+    
     
     deinit {
         notificationToken?.invalidate() // Pastikan untuk membatalkan token notifikasi saat view model di-deinisialisasi

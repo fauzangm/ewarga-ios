@@ -16,7 +16,6 @@ class BroadcastRepository {
             var arrayFile :[GraphQLFile] = []
             if(fileUrl != nil){
                 let imageExt = (filename! as NSString).pathExtension.lowercased()
-                print("cek ext \(imageExt)")
                 let file = try GraphQLFile(fieldName: "fileCover", originalName: filename!, mimeType: "application/\(imageExt)", fileURL: fileUrl!)
                 arrayFile.append(file)
             }
@@ -45,7 +44,6 @@ class BroadcastRepository {
                     print("Error creating GraphQLFile: \(error)")
                 }
             }
-            print("cek operation = \(data.fileCover)")
             let res = try await Network.shared.apollo.upload(
                 operation: data,
                 files: arrayFile
@@ -54,7 +52,7 @@ class BroadcastRepository {
                 throw AppError.graphError(res.errors)
             }
             if (res.data?.broadcastCreate) != nil {
-                print("\(res.data?.broadcastCreate?.id)")
+//                print("\(res.data?.broadcastCreate?.id)")
                 return true
             }
             return false

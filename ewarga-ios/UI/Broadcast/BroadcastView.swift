@@ -10,6 +10,7 @@ import SwiftUI
 struct BroadcastView: View {
     @Binding var presentSideMenu: Bool
     @State var isFormBroadcast = false
+    @ObservedObject private var lampiranRealm = LampiranBroadcastRealm()
     var body: some View {
         NavigationStack{
             VStack{
@@ -49,6 +50,9 @@ struct BroadcastView: View {
             }
             .navigationDestination(isPresented: $isFormBroadcast) {
                 FormBroadcastView(isFormBroadcast: $isFormBroadcast)
+            }
+            .onAppear{
+                lampiranRealm.clearAttachment()
             }
             .padding(.horizontal, 24)
         }
