@@ -10,6 +10,7 @@ import Apollo
 import EwargaGrapqlApi
 struct FormBroadcastView: View {
     @Binding var isFormBroadcast: Bool
+    @State var isLampiraBroadcast = false
     @State private var judul = ""
     @State private var deskripsi = ""
     @State private var coverGambar = ""
@@ -179,6 +180,9 @@ struct FormBroadcastView: View {
                                 }
                                 
                             }
+                            .onTapGesture {
+                                isLampiraBroadcast.toggle()
+                            }
                             .padding(.horizontal)
                             Spacer()
                         }
@@ -186,8 +190,6 @@ struct FormBroadcastView: View {
                         
                     }
                 }
-                
-                
                 HStack{
                     Button(action: {
                         // Action untuk tombol login
@@ -227,8 +229,6 @@ struct FormBroadcastView: View {
                     }
                 }
                 .padding()
-                
-                
             }
             .onReceive(viewModel.$isError.receive(on: DispatchQueue.main)){ isError in
                 if(isError == true){
@@ -264,6 +264,9 @@ struct FormBroadcastView: View {
                     }
                 }
             )
+        }
+        .navigationDestination(isPresented: $isLampiraBroadcast) {
+            LampiranBroadcastView(isLampiraBroadcast: $isLampiraBroadcast)
         }
         .navigationBarBackButtonHidden()
     }

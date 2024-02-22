@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct ewarga_iosApp: App {
+    init() {
+         RealmManager.shared.configure()
+     }
     var body: some Scene {
         WindowGroup {
             PageMain()

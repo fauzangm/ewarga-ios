@@ -25,6 +25,12 @@
 		22531F212B7B011D000D25C7 /* ewarga_iosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F202B7B011D000D25C7 /* ewarga_iosUITestsLaunchTests.swift */; };
 		22531F312B7B0407000D25C7 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22531F302B7B0407000D25C7 /* AuthView.swift */; };
 		22531F382B7B0EC1000D25C7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 22531F372B7B0EC1000D25C7 /* Apollo */; };
+		22628F912B86E6D000097973 /* LampiranBroadcastRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628F902B86E6D000097973 /* LampiranBroadcastRealm.swift */; };
+		22628F942B86E6FF00097973 /* LampiranBroadcastVo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628F932B86E6FF00097973 /* LampiranBroadcastVo.swift */; };
+		22628F992B86EC8900097973 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 22628F982B86EC8900097973 /* Realm */; };
+		22628F9B2B86EC8900097973 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 22628F9A2B86EC8900097973 /* RealmSwift */; };
+		22628F9D2B86F59700097973 /* LampiranBroadcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628F9C2B86F59700097973 /* LampiranBroadcastView.swift */; };
+		22628F9F2B87058D00097973 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628F9E2B87058D00097973 /* RealmManager.swift */; };
 		226A28F32B7B3D8300B81814 /* apollo-codegen-config.json in Sources */ = {isa = PBXBuildFile; fileRef = 226A28F22B7B3D8300B81814 /* apollo-codegen-config.json */; };
 		226A28F82B7B416800B81814 /* QueryWarga.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 226A28F72B7B416800B81814 /* QueryWarga.graphql */; };
 		226A28FC2B7B422800B81814 /* QueryInstansi.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 226A28FB2B7B422800B81814 /* QueryInstansi.graphql */; };
@@ -85,6 +91,10 @@
 		22531F1E2B7B011D000D25C7 /* ewarga_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ewarga_iosUITests.swift; sourceTree = "<group>"; };
 		22531F202B7B011D000D25C7 /* ewarga_iosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ewarga_iosUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		22531F302B7B0407000D25C7 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		22628F902B86E6D000097973 /* LampiranBroadcastRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LampiranBroadcastRealm.swift; sourceTree = "<group>"; };
+		22628F932B86E6FF00097973 /* LampiranBroadcastVo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LampiranBroadcastVo.swift; sourceTree = "<group>"; };
+		22628F9C2B86F59700097973 /* LampiranBroadcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LampiranBroadcastView.swift; sourceTree = "<group>"; };
+		22628F9E2B87058D00097973 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		226A28F22B7B3D8300B81814 /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		226A28F72B7B416800B81814 /* QueryWarga.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryWarga.graphql; sourceTree = "<group>"; };
 		226A28FB2B7B422800B81814 /* QueryInstansi.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryInstansi.graphql; sourceTree = "<group>"; };
@@ -114,6 +124,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22628F9B2B86EC8900097973 /* RealmSwift in Frameworks */,
+				22628F992B86EC8900097973 /* Realm in Frameworks */,
 				22531F382B7B0EC1000D25C7 /* Apollo in Frameworks */,
 				22098FA32B7DF87A00466644 /* EwargaGrapqlApi in Frameworks */,
 			);
@@ -174,6 +186,7 @@
 			children = (
 				22098FBC2B7E135000466644 /* BroadcastView.swift */,
 				22F9063E2B7F3E0E00740E4D /* FormBroadcastView.swift */,
+				22628F9C2B86F59700097973 /* LampiranBroadcastView.swift */,
 			);
 			path = Broadcast;
 			sourceTree = "<group>";
@@ -274,6 +287,23 @@
 			path = GraphQL;
 			sourceTree = "<group>";
 		};
+		22628F8F2B86E5D000097973 /* realm */ = {
+			isa = PBXGroup;
+			children = (
+				22628F902B86E6D000097973 /* LampiranBroadcastRealm.swift */,
+				22628F9E2B87058D00097973 /* RealmManager.swift */,
+			);
+			path = realm;
+			sourceTree = "<group>";
+		};
+		22628F922B86E6E900097973 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				22628F932B86E6FF00097973 /* LampiranBroadcastVo.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		226A28F42B7B40F300B81814 /* Schemas */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +352,8 @@
 		226A29222B7DB60D00B81814 /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				22628F922B86E6E900097973 /* model */,
+				22628F8F2B86E5D000097973 /* realm */,
 				226A29272B7DBC8D00B81814 /* sp */,
 			);
 			path = Local;
@@ -362,6 +394,8 @@
 			packageProductDependencies = (
 				22531F372B7B0EC1000D25C7 /* Apollo */,
 				22098FA22B7DF87A00466644 /* EwargaGrapqlApi */,
+				22628F982B86EC8900097973 /* Realm */,
+				22628F9A2B86EC8900097973 /* RealmSwift */,
 			);
 			productName = "ewarga-ios";
 			productReference = 22531F002B7B011B000D25C7 /* ewarga-ios.app */;
@@ -438,6 +472,7 @@
 			packageReferences = (
 				22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				22098FA12B7DF87A00466644 /* XCLocalSwiftPackageReference "ewarga-ios/EwargaGrapqlApi" */,
+				22628F972B86EC8900097973 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 22531F012B7B011B000D25C7 /* Products */;
 			projectDirPath = "";
@@ -493,12 +528,15 @@
 				22098FAF2B7E11EE00466644 /* SideMenuView.swift in Sources */,
 				226A28F32B7B3D8300B81814 /* apollo-codegen-config.json in Sources */,
 				22531F062B7B011B000D25C7 /* ContentView.swift in Sources */,
+				22628F912B86E6D000097973 /* LampiranBroadcastRealm.swift in Sources */,
 				22F9063D2B7F3B1000740E4D /* PageMain.swift in Sources */,
 				22098FB62B7E129000466644 /* WargaView.swift in Sources */,
 				226A29262B7DBC2F00B81814 /* Constans.swift in Sources */,
+				22628F942B86E6FF00097973 /* LampiranBroadcastVo.swift in Sources */,
 				22531F042B7B011B000D25C7 /* ewarga_iosApp.swift in Sources */,
 				22531F312B7B0407000D25C7 /* AuthView.swift in Sources */,
 				22E371C12B7EFB2F00C4D53E /* ServiceError.swift in Sources */,
+				22628F9D2B86F59700097973 /* LampiranBroadcastView.swift in Sources */,
 				22098FBD2B7E135000466644 /* BroadcastView.swift in Sources */,
 				226CC5D12B82EFB9001C649E /* BroadcastViewModel.swift in Sources */,
 				22E371BF2B7EF85C00C4D53E /* WargaViewModel.swift in Sources */,
@@ -507,6 +545,7 @@
 				22E371C62B7F047A00C4D53E /* SearchBar.swift in Sources */,
 				226A291B2B7DB4BA00B81814 /* Network.swift in Sources */,
 				22098FBF2B7E139700466644 /* SideMenu.swift in Sources */,
+				22628F9F2B87058D00097973 /* RealmManager.swift in Sources */,
 				22E371C32B7EFEE100C4D53E /* BuilderMain.swift in Sources */,
 				226A291F2B7DB53700B81814 /* InterceptorBearer.swift in Sources */,
 				226A291D2B7DB51200B81814 /* NetworkInterceptorProvider.swift in Sources */,
@@ -860,6 +899,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		22628F972B86EC8900097973 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -871,6 +918,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 22531F362B7B0EC1000D25C7 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		22628F982B86EC8900097973 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22628F972B86EC8900097973 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		22628F9A2B86EC8900097973 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 22628F972B86EC8900097973 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
