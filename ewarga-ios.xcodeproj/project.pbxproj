@@ -292,6 +292,7 @@
 		22628F8F2B86E5D000097973 /* realm */ = {
 			isa = PBXGroup;
 			children = (
+				22628FA42B87443E00097973 /* model */,
 				22628F902B86E6D000097973 /* LampiranBroadcastRealm.swift */,
 				22628F9E2B87058D00097973 /* RealmManager.swift */,
 			);
@@ -301,7 +302,6 @@
 		22628F922B86E6E900097973 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				22628F932B86E6FF00097973 /* LampiranBroadcastVo.swift */,
 				22628FA22B87395200097973 /* ModelLampiran.swift */,
 			);
 			path = model;
@@ -321,6 +321,14 @@
 				226A291E2B7DB53700B81814 /* InterceptorBearer.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		22628FA42B87443E00097973 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				22628F932B86E6FF00097973 /* LampiranBroadcastVo.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		226A28F42B7B40F300B81814 /* Schemas */ = {

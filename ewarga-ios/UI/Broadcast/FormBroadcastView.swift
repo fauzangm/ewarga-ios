@@ -19,14 +19,8 @@ struct FormBroadcastView: View {
     @State private var fileName: String? = nil
     @State private var showPicker = false
     @State private var showError = false
-//    @State private var lampiranURL : [URL] = []
     @State private var lampiranURL : [ModelLampiran] = []
     @State private var inputan : CreateBroadcastsMutation? = nil
-    
-    //Network
-    //    @ObservedObject private var viewModel : CreateBroadcastsMutation? = nil
-    //    @State private var isLoading = false
-    //    @State private var isProcessing = false
     private var errorService = ServiceError()
     @ObservedObject private var viewModel = BroadcastViewModel()
     @ObservedObject private var viewModelLampiranBroadcast = LampiranBroadcastRealm()
@@ -204,8 +198,7 @@ struct FormBroadcastView: View {
                 }
                 HStack{
                     Button(action: {
-                        // Action untuk tombol login
-                        
+                        // Action untuk tombol lihat
                     }) {
                         Text("Lihat")
                             .padding()
@@ -230,7 +223,7 @@ struct FormBroadcastView: View {
                         var listLampiran: [Upload] = []
                         let item = viewModelLampiranBroadcast.getAttachments()
                         item.forEach{element in
-                            var item = ModelLampiran()
+                            let item = ModelLampiran()
                             item.lampiranItem = element.lampiranItem
                             item.lampiranName = element.lampiranName
                             lampiranURL.append(item)
