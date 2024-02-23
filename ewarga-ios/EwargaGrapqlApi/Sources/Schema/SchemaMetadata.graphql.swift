@@ -26,6 +26,7 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "InstansiPaginator": return EwargaGrapqlApi.Objects.InstansiPaginator
     case "Instansi": return EwargaGrapqlApi.Objects.Instansi
     case "InstansiLangganan": return EwargaGrapqlApi.Objects.InstansiLangganan
+    case "MBroadcastSyaratKriteria": return EwargaGrapqlApi.Objects.MBroadcastSyaratKriteria
     case "Mutation": return EwargaGrapqlApi.Objects.Mutation
     case "Broadcast": return EwargaGrapqlApi.Objects.Broadcast
     case "WargaPaginator": return EwargaGrapqlApi.Objects.WargaPaginator

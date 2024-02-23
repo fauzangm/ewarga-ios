@@ -32,6 +32,9 @@
 		22628F9D2B86F59700097973 /* LampiranBroadcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628F9C2B86F59700097973 /* LampiranBroadcastView.swift */; };
 		22628F9F2B87058D00097973 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628F9E2B87058D00097973 /* RealmManager.swift */; };
 		22628FA32B87395200097973 /* ModelLampiran.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628FA22B87395200097973 /* ModelLampiran.swift */; };
+		22628FA62B88763F00097973 /* QueryBroadcastKriteria.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 22628FA52B88763F00097973 /* QueryBroadcastKriteria.graphql */; };
+		22628FAA2B88866D00097973 /* InstansiKriteriaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628FA92B88866D00097973 /* InstansiKriteriaModel.swift */; };
+		22628FAC2B88868700097973 /* JabatanKriteriaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22628FAB2B88868700097973 /* JabatanKriteriaModel.swift */; };
 		226A28F32B7B3D8300B81814 /* apollo-codegen-config.json in Sources */ = {isa = PBXBuildFile; fileRef = 226A28F22B7B3D8300B81814 /* apollo-codegen-config.json */; };
 		226A28F82B7B416800B81814 /* QueryWarga.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 226A28F72B7B416800B81814 /* QueryWarga.graphql */; };
 		226A28FC2B7B422800B81814 /* QueryInstansi.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 226A28FB2B7B422800B81814 /* QueryInstansi.graphql */; };
@@ -97,6 +100,9 @@
 		22628F9C2B86F59700097973 /* LampiranBroadcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LampiranBroadcastView.swift; sourceTree = "<group>"; };
 		22628F9E2B87058D00097973 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		22628FA22B87395200097973 /* ModelLampiran.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelLampiran.swift; sourceTree = "<group>"; };
+		22628FA52B88763F00097973 /* QueryBroadcastKriteria.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryBroadcastKriteria.graphql; sourceTree = "<group>"; };
+		22628FA92B88866D00097973 /* InstansiKriteriaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstansiKriteriaModel.swift; sourceTree = "<group>"; };
+		22628FAB2B88868700097973 /* JabatanKriteriaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JabatanKriteriaModel.swift; sourceTree = "<group>"; };
 		226A28F22B7B3D8300B81814 /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 		226A28F72B7B416800B81814 /* QueryWarga.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryWarga.graphql; sourceTree = "<group>"; };
 		226A28FB2B7B422800B81814 /* QueryInstansi.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = QueryInstansi.graphql; sourceTree = "<group>"; };
@@ -331,12 +337,22 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		22628FA82B88859800097973 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22628FA92B88866D00097973 /* InstansiKriteriaModel.swift */,
+				22628FAB2B88868700097973 /* JabatanKriteriaModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		226A28F42B7B40F300B81814 /* Schemas */ = {
 			isa = PBXGroup;
 			children = (
 				226A28F72B7B416800B81814 /* QueryWarga.graphql */,
 				226A28FB2B7B422800B81814 /* QueryInstansi.graphql */,
 				226CC5D22B82F1A6001C649E /* CreateBroadcast.graphql */,
+				22628FA52B88763F00097973 /* QueryBroadcastKriteria.graphql */,
 			);
 			path = Schemas;
 			sourceTree = "<group>";
@@ -344,6 +360,7 @@
 		226A29192B7DB49500B81814 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				22628FA82B88859800097973 /* Model */,
 				22628FA12B8735DF00097973 /* Auth */,
 				22628FA02B8735CC00097973 /* Repository */,
 				226A291A2B7DB4BA00B81814 /* Network.swift */,
@@ -518,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22531F0B2B7B011D000D25C7 /* Preview Assets.xcassets in Resources */,
+				22628FA62B88763F00097973 /* QueryBroadcastKriteria.graphql in Resources */,
 				226CC5D32B82F1A6001C649E /* CreateBroadcast.graphql in Resources */,
 				226A290A2B7DB06B00B81814 /* schema.graphqls in Resources */,
 				22531F082B7B011D000D25C7 /* Assets.xcassets in Resources */,
@@ -547,6 +565,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22628FAC2B88868700097973 /* JabatanKriteriaModel.swift in Sources */,
 				22098FB82B7E129D00466644 /* BerandaView.swift in Sources */,
 				22628FA32B87395200097973 /* ModelLampiran.swift in Sources */,
 				22098FB12B7E121600466644 /* SideMenuUtils.swift in Sources */,
@@ -566,6 +585,7 @@
 				22E371C12B7EFB2F00C4D53E /* ServiceError.swift in Sources */,
 				22628F9D2B86F59700097973 /* LampiranBroadcastView.swift in Sources */,
 				22098FBD2B7E135000466644 /* BroadcastView.swift in Sources */,
+				22628FAA2B88866D00097973 /* InstansiKriteriaModel.swift in Sources */,
 				226CC5D12B82EFB9001C649E /* BroadcastViewModel.swift in Sources */,
 				22E371BF2B7EF85C00C4D53E /* WargaViewModel.swift in Sources */,
 				226A29142B7DB31F00B81814 /* ApolloClient.swift in Sources */,

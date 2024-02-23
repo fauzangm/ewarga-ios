@@ -61,4 +61,25 @@ class BroadcastRepository {
             throw error
         }
     }
+    
+    func getKriteriaBroadcast() async throws -> [EwargaGrapqlApi.MBroadcastSyaratKriteriaQuery.Data.MBroadcastSyaratKriterium?]{
+        var res = [EwargaGrapqlApi.MBroadcastSyaratKriteriaQuery.Data.MBroadcastSyaratKriterium?]()
+        let results = Network.shared.apollo.fetch(query: EwargaGrapqlApi.MBroadcastSyaratKriteriaQuery())
+        
+        do{
+            for try await result in results {
+                if result.errors != nil {
+                    throw AppError.graphError(result.errors)
+                }
+                if let s = result.data?.mBroadcastSyaratKriteria {
+                    res = s
+                }
+            }
+            return res
+        }catch{
+            print(error)
+            throw error
+        }
+    }
+    
 }

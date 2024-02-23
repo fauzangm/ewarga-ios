@@ -1,0 +1,9 @@
+query mBroadcastSyaratKriteria {
+  mBroadcastSyaratKriteria(instansi_id: "91") {
+    id
+    key
+    label
+    tipe
+    value
+  }
+}

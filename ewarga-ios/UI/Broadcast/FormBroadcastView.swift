@@ -15,6 +15,10 @@ struct FormBroadcastView: View {
     @State private var deskripsi = ""
     @State private var coverGambar = ""
     @State private var selectedFileName = "Pilih Cover Gambar"
+    @State private var selectedItemInstansiKriteria = ""
+    @State private var idItemInstansiKriteria = ""
+    @State private var selectedItemJabatanKriteria = ""
+    @State private var idItemJabatanKriteria = ""
     @State private var selectedFile: URL? = nil
     @State private var fileName: String? = nil
     @State private var showPicker = false
@@ -190,6 +194,27 @@ struct FormBroadcastView: View {
                                 isLampiraBroadcast.toggle()
                             }
                             .padding(.horizontal)
+                            
+                            HStack{
+                                Picker("Pilih Item", selection: $selectedItemInstansiKriteria) {
+                                    ForEach(viewModel.instansKriteriaBroadcast) { item in
+                                        Text(item.nama).tag(item.nama)
+                                    }
+                                }
+                            
+                                
+                                Spacer()
+                                Picker("Pilih Item", selection: $selectedItemJabatanKriteria) {
+                                    ForEach(viewModel.jabatanKriteriaBroadcast,id: \.self) { item in
+                                        Text(item)
+                                    }
+                                }
+                     
+                            }
+                            .padding(.horizontal)
+                            
+                      
+                            
                             Spacer()
                         }
                         
@@ -245,18 +270,24 @@ struct FormBroadcastView: View {
                             .cornerRadius(16) // Radius tombol
                     }
                 }
+              
                 .padding()
             }
             .onAppear{
+                Task{
+                    await viewModel.getBroadcastKriteria()
+                }
                 viewModel.isError = false
-                viewModel.isLoading = false
+                viewModel.isLoading = true
                 viewModel.isSuccesPost = false
+                viewModel.isSuccesGet = false
             }
             .onReceive(viewModel.$isError.receive(on: DispatchQueue.main)){ isError in
                 if(isError == true){
                     viewModel.isError = false
                     viewModel.isLoading = false
                     viewModel.isSuccesPost = false
+                    viewModel.isSuccesGet = false
                     showError.toggle()
                 }
             }
