@@ -244,13 +244,19 @@ struct FormBroadcastView: View {
                     Button(action: {
                         print("cek name file  \(selectedFileName) dan cek kriteria = \(selectedIdInstansi) dan \(selectedTargetJabatan)")
                         viewModel.isLoading.toggle()
+                        
+                        //Inisasi Variabel Graphql
                         let statusEnum = StatusBroadcast.draft
                         let graphQLEnum = GraphQLEnum<StatusBroadcast>(rawValue: statusEnum.rawValue)
                         let uploadfile : Upload = selectedFileName
                         let fileCover: GraphQLNullable<Upload>? = fileName != nil ? .some(uploadfile) : nil
                         var lampiranItem: GraphQLNullable<[Upload?]> = .none
+                        var broadCastSyarat: GraphQLNullable<[BroadcastSyaratInput?]> = .none
                         var listLampiran: [Upload] = []
+                        var listBroadcastSyarat : [BroadcastSyaratInput] = []
                         let item = viewModelLampiranBroadcast.getAttachments()
+                        
+                        // Lampiran Broadcast
                         item.forEach{element in
                             let item = ModelLampiran()
                             item.lampiranItem = element.lampiranItem
@@ -258,9 +264,40 @@ struct FormBroadcastView: View {
                             lampiranURL.append(item)
                             let uploadfile : Upload = element.lampiranName
                             listLampiran.append(uploadfile)
-                            lampiranItem = .some(listLampiran)
                         }
-                        inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: fileCover ?? nil, lampiran: lampiranItem, broadCastSyarat: nil, publish: graphQLEnum )
+                        lampiranItem = .some(listLampiran)
+                        
+                        // Mkriteria Broadcast
+                        selectedIdInstansi.enumerated().forEach { index, idInstansi in
+                            // Lakukan sesuatu dengan indeks dan ID di sini
+                            print("Index: \(index), ID: \(idInstansi)")
+                            let tipeKriteria = TipeKriteria.string
+                            let tipeKriteriaGraphQLEnum = GraphQLEnum<TipeKriteria>(rawValue: tipeKriteria.rawValue)
+                            var broadcastSyaratInput = BroadcastSyaratInput(
+                                keterangan : "inputan",
+                                broadcast_syarat_kriteria : [
+                                    BroadcastSyaratKriteriaInput(
+                                        key: "instansi_id",
+                                        value: idInstansi,
+                                        tipe : tipeKriteriaGraphQLEnum
+                                    ),
+                                    BroadcastSyaratKriteriaInput(
+                                        key: "jabatan_id",
+                                        value: selectedTargetJabatan[index],
+                                        tipe : tipeKriteriaGraphQLEnum
+                                )
+                                
+                                ]
+                            
+                            )
+                            listBroadcastSyarat.append(broadcastSyaratInput)
+                        
+                        }
+                        broadCastSyarat = .some(listBroadcastSyarat)
+                        
+                        
+                        inputan = CreateBroadcastsMutation(instansiId: "91", judul: judul, body: deskripsi, fileCover: fileCover ?? nil, lampiran: lampiranItem, broadCastSyarat: broadCastSyarat, publish: graphQLEnum )
+                        
                         Task {
                             await doSubmit()
                         }
