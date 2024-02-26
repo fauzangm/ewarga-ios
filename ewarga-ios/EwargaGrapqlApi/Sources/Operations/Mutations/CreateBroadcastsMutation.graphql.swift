@@ -27,7 +27,7 @@ public class CreateBroadcastsMutation: GraphQLMutation {
     broadCastSyarat: GraphQLNullable<[BroadcastSyaratInput?]>,
     publish: GraphQLEnum<StatusBroadcast>
   ) {
-    self.instansiId = instansiId
+    self.instansiId = instansiId 
     self.judul = judul
     self.body = body
     self.fileCover = fileCover

@@ -20,7 +20,8 @@ class BroadcastViewModel : ObservableObject {
     @Published var isError = false
     @Published var mKriteriaBroadcast = [EwargaGrapqlApi.MBroadcastSyaratKriteriaQuery.Data.MBroadcastSyaratKriterium?]()
     @Published var errorMessage = "Terjadi masalah saat menghubungi server. Silakan coba lagi nanti"
-    
+    @Published var selectedItemInstansiKriteria = ""
+    @Published var selectedItemJabatanKriteria = ""
     func createBroadcast(data: EwargaGrapqlApi.CreateBroadcastsMutation, fileUrl: URL?, filename: String?,lampiranURL : [ModelLampiran]?) async {
         do {
 //            print("cek lampiran url = \(lampiranURL)")
@@ -55,7 +56,9 @@ class BroadcastViewModel : ObservableObject {
                 self.isLoading = false
                 self.mKriteriaBroadcast = res
                 self.instansKriteriaBroadcast = decodeInstansiKriteriaItems(from: res[0]?.value ?? "")
+                self.selectedItemInstansiKriteria = self.instansKriteriaBroadcast.first?.nama ?? ""
                 self.jabatanKriteriaBroadcast = decodeJabatanKriteriaItems(from: res[1]?.value ?? "")
+                self.selectedItemJabatanKriteria = jabatanKriteriaBroadcast.first ?? ""
                 
             }
             

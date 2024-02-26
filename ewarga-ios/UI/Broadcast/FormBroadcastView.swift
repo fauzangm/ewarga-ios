@@ -11,14 +11,13 @@ import EwargaGrapqlApi
 struct FormBroadcastView: View {
     @Binding var isFormBroadcast: Bool
     @State var isLampiraBroadcast = false
+    @State var isKriteriaBroadcast = false
+    @State var selectedIdInstansi: [String] = []
+    @State var selectedTargetJabatan: [String] = []
     @State private var judul = ""
     @State private var deskripsi = ""
     @State private var coverGambar = ""
     @State private var selectedFileName = "Pilih Cover Gambar"
-    @State private var selectedItemInstansiKriteria = ""
-    @State private var idItemInstansiKriteria = ""
-    @State private var selectedItemJabatanKriteria = ""
-    @State private var idItemJabatanKriteria = ""
     @State private var selectedFile: URL? = nil
     @State private var fileName: String? = nil
     @State private var showPicker = false
@@ -195,23 +194,28 @@ struct FormBroadcastView: View {
                             }
                             .padding(.horizontal)
                             
-                            HStack{
-                                Picker("Pilih Item", selection: $selectedItemInstansiKriteria) {
-                                    ForEach(viewModel.instansKriteriaBroadcast) { item in
-                                        Text(item.nama).tag(item.nama)
+                            Section{
+                                Text("Sasaran Broadcast")
+                                    .padding(.top)
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.gray, lineWidth: 1)
+                                        .frame(maxHeight: 50)
+                                    HStack{
+                                        Text("Sasaran Broadcast")
+                                        Spacer()
                                     }
+                                    .padding()
+                                    
                                 }
-                            
                                 
-                                Spacer()
-                                Picker("Pilih Item", selection: $selectedItemJabatanKriteria) {
-                                    ForEach(viewModel.jabatanKriteriaBroadcast,id: \.self) { item in
-                                        Text(item)
-                                    }
-                                }
-                     
+                            }
+                            .onTapGesture {
+                                isKriteriaBroadcast.toggle()
                             }
                             .padding(.horizontal)
+                            
+                     
                             
                       
                             
@@ -238,7 +242,7 @@ struct FormBroadcastView: View {
                     }
                     
                     Button(action: {
-                        print("cek name file  \(selectedFileName)")
+                        print("cek name file  \(selectedFileName) dan cek kriteria = \(selectedIdInstansi) dan \(selectedTargetJabatan)")
                         viewModel.isLoading.toggle()
                         let statusEnum = StatusBroadcast.draft
                         let graphQLEnum = GraphQLEnum<StatusBroadcast>(rawValue: statusEnum.rawValue)
@@ -274,11 +278,8 @@ struct FormBroadcastView: View {
                 .padding()
             }
             .onAppear{
-                Task{
-                    await viewModel.getBroadcastKriteria()
-                }
                 viewModel.isError = false
-                viewModel.isLoading = true
+                viewModel.isLoading = false
                 viewModel.isSuccesPost = false
                 viewModel.isSuccesGet = false
             }
@@ -320,6 +321,9 @@ struct FormBroadcastView: View {
         }
         .navigationDestination(isPresented: $isLampiraBroadcast) {
             LampiranBroadcastView(isLampiraBroadcast: $isLampiraBroadcast)
+        } 
+        .navigationDestination(isPresented: $isKriteriaBroadcast) {
+            KriteriaBroadcastView(isKriteriaBroadcast: $isKriteriaBroadcast,selectedIdInstansi: $selectedIdInstansi,selectedTargetJabatan: $selectedTargetJabatan)
         }
         .navigationBarBackButtonHidden()
     }
